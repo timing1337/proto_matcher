@@ -1,0 +1,215 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message ToTheMoonQueryPathReq {
+    optional Vector destination_pos = 9;
+    optional int32 fuzzy_range = 15;
+    
+    optional OptionType query_type = 8;
+    enum OptionType {
+        OPTION_NONE = 0;
+        OPTION_NORMAL = 1;
+    }
+    
+    optional AStarMethod astar_method = 1;
+    enum AStarMethod {
+        Classic = 0;
+        Tendency = 1;
+        Adaptive = 2;
+        Inflection = 3;
+    }
+    
+    optional uint32 scene_id = 6;
+    optional int32 query_id = 11;
+    
+    optional FilterType filter_type = 3;
+    enum FilterType {
+        All = 0;
+        Air = 1;
+        Water = 2;
+    }
+    
+    optional bool refined = 13;
+    optional bool use_full_neighbor = 5;
+    optional Vector source_pos = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6172;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ToTheMoonQueryPathRsp {
+    optional PathStatusType query_status = 7;
+    enum PathStatusType {
+        STATUS_FAIL = 0;
+        STATUS_SUCC = 1;
+        STATUS_PARTIAL = 2;
+    }
+    
+    repeated int64 index = 3;
+    repeated Vector corners = 14;
+    repeated int32 level = 1;
+    optional int32 retcode = 8;
+    optional int32 query_id = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6198;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ToTheMoonPingNotify {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6112;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ToTheMoonEnterSceneReq {
+    optional uint32 version = 14;
+    optional uint32 scene_id = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6135;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ToTheMoonEnterSceneRsp {
+    optional int32 retcode = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6107;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ToTheMoonObstacleInfo {
+    optional ShapeType type = 2;
+    enum ShapeType {
+        OBSTACLE_SHAPE_CAPSULE = 0;
+        OBSTACLE_SHAPE_BOX = 1;
+    }
+    
+    optional int32 handle_id = 11;
+    optional MathQuaternion rotation = 7;
+    optional Vector center = 13;
+    optional Vector half_extents = 14;
+}
+
+message ToTheMoonAddObstacleReq {
+    optional bool use_edge = 12;
+    optional ToTheMoonObstacleInfo obstacle = 13;
+    optional int32 query_id = 9;
+    optional uint32 scene_id = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6121;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message DynamicSVONode {
+    optional int64 index = 8;
+    optional int32 area = 5;
+    optional Vector refer_pos = 1;
+}
+
+message DynamicLayerNodes {
+    optional int32 level = 10;
+    repeated DynamicSVONode nodes = 6;
+}
+
+message DynamicNodes {
+    repeated DynamicLayerNodes nodes = 3;
+}
+
+message ToTheMoonAddObstacleRsp {
+    optional DynamicNodes dynamic_nodes = 2;
+    optional int32 query_id = 13;
+    optional int32 retcode = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6103;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ToTheMoonRemoveObstacleReq {
+    optional int32 handle = 12;
+    optional uint32 scene_id = 10;
+    optional int32 query_id = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6190;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+    
+    enum ObstacleType {
+        Box = 0;
+        Capsule = 1;
+    }
+}
+
+message ToTheMoonRemoveObstacleRsp {
+    optional int32 query_id = 3;
+    optional int32 retcode = 14;
+    optional DynamicNodes dynamic_nodes = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6173;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ToTheMoonObstaclesModifyNotify {
+    repeated ToTheMoonObstacleInfo add_obstacles = 4;
+    repeated int32 remove_obstacle_ids = 13;
+    optional uint32 scene_id = 15;
+    optional bool use_edge = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6199;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}

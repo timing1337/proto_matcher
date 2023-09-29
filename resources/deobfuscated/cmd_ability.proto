@@ -1,0 +1,689 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+import "cmd_fight.proto";
+
+message AbilityInvokeEntryHead {
+    optional int32 modifier_config_local_id = 7;
+    optional bool is_serverbuff_modifier = 2;
+    optional uint32 instanced_ability_id = 1;
+    optional uint32 instanced_modifier_id = 12;
+    optional int32 local_id = 10;
+    optional uint32 server_buff_uid = 14;
+    optional uint32 target_id = 3;
+}
+
+message AbilityInvokeEntry {
+    optional bytes ability_data = 15;
+    optional AbilityInvokeEntryHead head = 2;
+    optional uint32 event_id = 12;
+    optional uint32 entity_id = 9;
+    optional double total_tick_time = 14;
+    optional uint32 forward_peer = 4;
+    optional AbilityInvokeArgument argument_type = 1;
+    optional bool is_ignore_auth = 8;
+    optional ForwardType forward_type = 3;
+}
+
+message AbilityInvocationFixedNotify {
+    optional AbilityInvokeEntry invoke6th = 14;
+    optional AbilityInvokeEntry invoke5th = 8;
+    optional AbilityInvokeEntry invoke4th = 1;
+    optional AbilityInvokeEntry invoke2nd = 5;
+    optional AbilityInvokeEntry invoke1st = 10;
+    optional AbilityInvokeEntry invoke3rd = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1172;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AbilityInvocationsNotify {
+    repeated AbilityInvokeEntry invokes = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1198;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AbilityMetaReInitOverrideMap {
+    repeated AbilityScalarValueEntry override_map = 7;
+}
+
+message AbilityMetaAddAbility {
+    optional AbilityAppliedAbility ability = 12;
+}
+
+message ModifierProperty {
+    optional AbilityString key = 15;
+    optional float value = 5;
+}
+
+message AbilityMetaModifierChange {
+    optional AbilityAttachedModifier attached_instanced_modifier = 7;
+    optional uint32 server_buff_uid = 4;
+    optional bool is_attached_parent_ability = 10;
+    optional ModifierAction action = 13;
+    optional int32 modifier_local_id = 2;
+    optional AbilityString parent_ability_name = 1;
+    optional bool is_mute_remote = 6;
+    optional uint32 apply_entity_id = 5;
+    repeated ModifierProperty properties = 3;
+    optional AbilityString parent_ability_override = 11;
+    optional bool is_durability_zero = 9;
+}
+
+message AbilityMetaDurabilityIsZero {
+    optional bool is_zero = 5;
+}
+
+message AbilityMetaSpecialFloatArgument {
+    optional float argument_value = 14;
+    optional bool is_on = 10;
+}
+
+message AbilityMetaAddOrGetAbilityAndTrigger {
+    optional AbilityString ability_name = 13;
+    optional float trigger_argument = 3;
+    optional AbilityString ability_override = 8;
+}
+
+message AbilityMetaSetKilledState {
+    optional bool killed = 2;
+}
+
+message AbilityMetaSetAbilityTrigger {
+    optional uint32 trigger_ability_entity_id = 11;
+}
+
+message AbilityMetaSetModifierApplyEntityId {
+    optional uint32 apply_entity_id = 10;
+}
+
+message AbilityMetaModifierDurabilityChange {
+    optional float reduce_durability = 6;
+    optional float remain_durability = 15;
+}
+
+message AbilityMetaElementReactionVisual {
+    optional int32 hit_index = 2;
+    optional uint32 element_source_type = 12;
+    optional uint32 element_reactor_type = 6;
+    optional uint32 element_reaction_type = 5;
+}
+
+message AbilityMetaTriggerElementReaction {
+    optional int32 hit_index = 9;
+    optional uint32 element_source_type = 7;
+    optional uint32 element_reactor_type = 12;
+    optional uint32 trigger_entity_id = 2;
+    optional uint32 element_reaction_type = 1;
+}
+
+message AbilityMetaLoseHp {
+    optional uint32 lose_hp_config_idx = 10;
+}
+
+message AbilityMetaSetPoseParameter {
+    optional AnimatorParameterValueInfoPair value = 6;
+}
+
+message AbilityMetaUpdateBaseReactionDamage {
+    optional uint32 source_caster_id = 15;
+    optional AbilityString ability_name = 1;
+    optional AbilityString global_value_key = 4;
+    optional uint32 reaction_type = 8;
+}
+
+message AbilityActionTriggerAbility {
+    optional uint32 other_id = 14;
+}
+
+message AbilityActionSetCrashDamage {
+    optional Vector hit_pos = 2;
+    optional float damage = 15;
+}
+
+message AbilityBornType {
+    optional Vector rot = 2;
+    optional Vector move_dir = 14;
+    optional Vector pos = 5;
+}
+
+message AbilityFireworkBornType {
+    optional uint32 effect_index = 13;
+    optional Vector pos = 10;
+    optional Vector move_dir = 1;
+    optional Vector rot = 5;
+}
+
+message AbilityActionSummon {
+    optional Vector pos = 10;
+    optional Vector rot = 1;
+}
+
+message AbilityActionBlink {
+    optional Vector rot = 11;
+    optional Vector pos = 10;
+}
+
+message AbilityActionCreateGadget {
+    optional uint32 room_id = 3;
+    optional Vector rot = 8;
+    optional Vector pos = 11;
+}
+
+message AbilityActionSetRandomOverrideMapValue {
+    optional float random_value = 1;
+}
+
+message AbilityActionServerMonsterLog {
+    repeated int32 param_list = 2;
+}
+
+message AbilityActionCreateTile {
+    optional Vector rot = 3;
+    optional Vector pos = 8;
+}
+
+message AbilityActionDestroyTile {
+    optional Vector rot = 3;
+    optional Vector pos = 1;
+}
+
+message AbilityActionFireAfterImgae {
+    optional Vector dir = 12;
+}
+
+message AbilityApplyLevelModifier {
+    optional uint32 apply_entity_id = 6;
+}
+
+message AbilityActionGenerateElemBall {
+    optional uint32 room_id = 2;
+    optional Vector pos = 7;
+    optional Vector rot = 13;
+}
+
+message AbilityActionDeductStamina {
+    optional bool is_swim = 1;
+}
+
+message AbilityActionHitEffect {
+    optional uint32 trigger_id = 3;
+}
+
+message AbilityActionSetBulletTrackTarget {
+    optional uint32 chased_entity_id = 1;
+    optional uint32 lock_point_index = 2;
+}
+
+message AbilityMixinEmpty {
+    
+}
+
+message AbilityMixinAvatarSteerByCamera {
+    optional Vector target_dir = 7;
+    optional Vector target_pos = 6;
+}
+
+message AbilityMixinWindZone {
+    repeated uint32 entity_ids = 13;
+    repeated uint32 zone_id_list = 10;
+}
+
+message AbilityMixinCostStamina {
+    optional bool is_swim = 3;
+}
+
+message AbilityMixinEliteShield {
+    optional float sub_shield = 2;
+}
+
+message AbilityMixinElementShield {
+    optional float sub_shield = 10;
+    optional float shield = 8;
+    optional uint32 absorb_type = 1;
+    optional uint32 player_num = 4;
+    optional bool is_shield_broken = 9;
+    optional float max_shield = 12;
+}
+
+message AbilityMixinGlobalShield {
+    optional bool is_create_effect = 4;
+    optional float sub_shield = 7;
+    optional float height_offset = 5;
+    optional uint32 avatar_id = 11;
+    optional float max_shield = 10;
+    optional string shield_effect_name = 2;
+}
+
+message AbilityMixinShieldBar {
+    optional uint32 player_num = 14;
+    optional float max_shield = 15;
+    optional float shield = 12;
+    optional uint32 element_type = 13;
+}
+
+message AbilityMixinWindSeedSpawner {
+    oneof cmd {
+        AddSignal add_signal = 2;
+        RefreshSeed refresh_seed = 15;
+        CatchSeed catch_seed = 11;
+    }
+    
+    message AddSignal {
+        
+    }
+    
+    message RefreshSeed {
+        repeated Vector pos_list = 6;
+    }
+    
+    message CatchSeed {
+        optional uint32 entity_id = 8;
+    }
+}
+
+message AbilityMixinDoActionByElementReaction {
+    optional uint32 target_entity_id = 1;
+}
+
+message AbilityMixinFieldEntityCountChange {
+    optional uint32 field_entity_count = 14;
+}
+
+message AbilityMixinScenePropSync {
+    repeated int64 delete_id_list = 5;
+    optional bool is_clear_all = 12;
+    repeated MassivePropSyncInfo massive_prop_list = 15;
+}
+
+message AbilityMixinWidgetMpSupport {
+    optional uint32 target_entity_id = 9;
+}
+
+message AbilityMixinDoActionBySelfModifierElementDurabilityRatio {
+    optional float last_duability_ratio = 9;
+}
+
+message AbilityMixinFireworksLauncher {
+    optional uint32 invoke_type = 2;
+    optional uint32 start_count_down_time = 3;
+    optional uint32 fired_bullet_count = 1;
+    optional uint32 phase = 6;
+    repeated uint32 fireworks_config = 4;
+    optional uint32 turn_index = 7;
+}
+
+message AbilityMixinUGCTimeControl {
+    optional uint64 start_move_time_ms = 13;
+    optional uint32 start_move_time = 3;
+}
+
+message AbilityMixinUIInteract {
+    
+}
+
+message AbilityMixinAvatarCombat {
+    optional bool is_enter_combat = 9;
+}
+
+message AbilityMixinShootFromCamera {
+    optional Vector init_pos = 13;
+    optional Vector forward = 2;
+}
+
+message AbilityMixinEraseBrickActivity {
+    repeated uint32 data = 6;
+}
+
+message BreakoutSyncCreateConnect {
+    repeated BreakoutSyncConnectUidInfo uid_info_list = 1;
+}
+
+message BreakoutSyncPing {
+    optional uint64 client_game_time = 2;
+    optional uint64 server_game_time = 11;
+}
+
+message BreakoutSyncFinishGame {
+    optional bool is_win = 13;
+    optional bool is_stop_gallery = 15;
+    optional uint64 server_game_time = 9;
+}
+
+message BreakoutSyncSnapShot {
+    optional BreakoutSnapShot snap_shot = 9;
+}
+
+message BreakoutSyncAction {
+    optional BreakoutAction action = 1;
+}
+
+message AbilityMixinBreakout {
+    optional SyncType sync_type = 8;
+    enum SyncType {
+        SYNC_TYPE_NONE = 0;
+        SYNC_TYPE_CREATE_CONNECT = 1;
+        SYNC_TYPE_START_GAME = 2;
+        SYNC_TYPE_PING = 3;
+        SYNC_TYPE_FINISH_GAME = 4;
+        SYNC_TYPE_SNAP_SHOT = 5;
+        SYNC_TYPE_ACTION = 6;
+    }
+    
+    optional int32 retcode = 2;
+    
+    oneof sync {
+        BreakoutSyncCreateConnect sync_create_connect = 4;
+        BreakoutSyncPing sync_ping = 7;
+        BreakoutSyncFinishGame sync_finish_game = 6;
+        BreakoutSyncSnapShot sync_snap_shot = 12;
+        BreakoutSyncAction sync_action = 9;
+    }
+}
+
+message AttackResultCreateCount {
+    repeated uint32 create_count_list = 10;
+    repeated uint32 create_count_no_cost_list = 7;
+}
+
+message ClientAbilityInitBeginNotify {
+    optional uint32 entity_id = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1112;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ClientAbilityInitFinishNotify {
+    repeated AbilityInvokeEntry invokes = 14;
+    optional uint32 entity_id = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1135;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AbilityInvocationFailNotify {
+    optional string reason = 7;
+    optional uint32 entity_id = 13;
+    optional AbilityInvokeEntry invoke = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1107;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message EntityAbilityInvokeEntry {
+    optional uint32 entity_id = 8;
+    repeated AbilityInvokeEntry invokes = 1;
+}
+
+message ClientAbilitiesInitFinishCombineNotify {
+    repeated EntityAbilityInvokeEntry entity_invoke_list = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1103;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message WindSeedClientNotify {
+    oneof notify {
+        RefreshNotify refresh_notify = 14;
+        AddWindBulletNotify add_wind_bullet_notify = 6;
+        AreaNotify area_notify = 4;
+    }
+    
+    message RefreshNotify {
+        optional uint32 refresh_num = 9;
+    }
+    
+    message AddWindBulletNotify {
+        optional Vector seed_pos = 6;
+        optional uint32 catch_player_uid = 8;
+        optional uint32 seed_entity_id = 7;
+    }
+    
+    message AreaNotify {
+        optional bytes area_code = 5;
+        optional uint32 area_id = 10;
+        optional uint32 area_type = 7;
+    }
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1199;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AbilityChangeNotify {
+    optional uint32 entity_id = 1;
+    optional AbilityControlBlock ability_control_block = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1131;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ClientAbilityChangeNotify {
+    optional bool is_init_hash = 9;
+    optional uint32 entity_id = 2;
+    repeated AbilityInvokeEntry invokes = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1175;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ServerUpdateGlobalValueNotify {
+    optional uint32 entity_id = 9;
+    
+    optional UpdateType update_type = 13;
+    enum UpdateType {
+        INVALUE = 0;
+        ADD = 1;
+        SET = 2;
+    }
+    
+    optional float delta = 3;
+    optional uint32 key_hash = 10;
+    optional float value = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1148;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ServerGlobalValueChangeNotify {
+    optional uint32 entity_id = 6;
+    optional float value = 12;
+    optional uint32 key_hash = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1197;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ClientAIStateNotify {
+    optional uint32 entity_id = 9;
+    optional uint32 cur_tactic = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1181;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ServerCombatEndNotify {
+    repeated uint32 combat_end_type_list = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1105;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ClientRemoveCombatEndModifierNotify {
+    repeated uint32 combat_end_type_list = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1182;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message PerformOperationNotify {
+    optional uint32 index = 9;
+    optional Vector pos = 7;
+    optional Vector rot = 10;
+    
+    optional OperateType operate_type = 3;
+    enum OperateType {
+        OPERATE_TYPE_NONE = 0;
+        OPERATE_TYPE_EFFECT = 1;
+    }
+    
+    optional uint32 entity_id = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1147;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+enum AbilityInvokeArgument {
+    ABILITY_NONE = 0;
+    ABILITY_META_MODIFIER_CHANGE = 1;
+    ABILITY_META_COMMAND_MODIFIER_CHANGE_REQUEST = 2;
+    ABILITY_META_SPECIAL_FLOAT_ARGUMENT = 3;
+    ABILITY_META_OVERRIDE_PARAM = 4;
+    ABILITY_META_CLEAR_OVERRIDE_PARAM = 5;
+    ABILITY_META_REINIT_OVERRIDEMAP = 6;
+    ABILITY_META_GLOBAL_FLOAT_VALUE = 7;
+    ABILITY_META_CLEAR_GLOBAL_FLOAT_VALUE = 8;
+    ABILITY_META_ABILITY_ELEMENT_STRENGTH = 9;
+    ABILITY_META_ADD_OR_GET_ABILITY_AND_TRIGGER = 10;
+    ABILITY_META_SET_KILLED_SETATE = 11;
+    ABILITY_META_SET_ABILITY_TRIGGER = 12;
+    ABILITY_META_ADD_NEW_ABILITY = 13;
+    ABILITY_META_REMOVE_ABILITY = 14;
+    ABILITY_META_SET_MODIFIER_APPLY_ENTITY = 15;
+    ABILITY_META_MODIFIER_DURABILITY_CHANGE = 16;
+    ABILITY_META_ELEMENT_REACTION_VISUAL = 17;
+    ABILITY_META_SET_POSE_PARAMETER = 18;
+    ABILITY_META_UPDATE_BASE_REACTION_DAMAGE = 19;
+    ABILITY_META_TRIGGER_ELEMENT_REACTION = 20;
+    ABILITY_META_LOSE_HP = 21;
+    ABILITY_META_DURABILITY_IS_ZERO = 22;
+    ABILITY_ACTION_TRIGGER_ABILITY = 50;
+    ABILITY_ACTION_SET_CRASH_DAMAGE = 51;
+    ABILITY_ACTION_EFFECT = 52;
+    ABILITY_ACTION_SUMMON = 53;
+    ABILITY_ACTION_BLINK = 54;
+    ABILITY_ACTION_CREATE_GADGET = 55;
+    ABILITY_ACTION_APPLY_LEVEL_MODIFIER = 56;
+    ABILITY_ACTION_GENERATE_ELEM_BALL = 57;
+    ABILITY_ACTION_SET_RANDOM_OVERRIDE_MAP_VALUE = 58;
+    ABILITY_ACTION_SERVER_MONSTER_LOG = 59;
+    ABILITY_ACTION_CREATE_TILE = 60;
+    ABILITY_ACTION_DESTROY_TILE = 61;
+    ABILITY_ACTION_FIRE_AFTER_IMAGE = 62;
+    ABILITY_ACTION_DEDUCT_STAMINA = 63;
+    ABILITY_ACTION_HIT_EFFECT = 64;
+    ABILITY_ACTION_SET_BULLET_TRACK_TARGET = 65;
+    ABILITY_MIXIN_AVATAR_STEER_BY_CAMERA = 100;
+    ABILITY_MIXIN_MONSTER_DEFEND = 101;
+    ABILITY_MIXIN_WIND_ZONE = 102;
+    ABILITY_MIXIN_COST_STAMINA = 103;
+    ABILITY_MIXIN_ELITE_SHIELD = 104;
+    ABILITY_MIXIN_ELEMENT_SHIELD = 105;
+    ABILITY_MIXIN_GLOBAL_SHIELD = 106;
+    ABILITY_MIXIN_SHIELD_BAR = 107;
+    ABILITY_MIXIN_WIND_SEED_SPAWNER = 108;
+    ABILITY_MIXIN_DO_ACTION_BY_ELEMENT_REACTION = 109;
+    ABILITY_MIXIN_FIELD_ENTITY_COUNT_CHANGE = 110;
+    ABILITY_MIXIN_SCENE_PROP_SYNC = 111;
+    ABILITY_MIXIN_WIDGET_MP_SUPPORT = 112;
+    ABILITY_MIXIN_DO_ACTION_BY_SELF_MODIFIER_ELEMENT_DURABILITY_RATIO = 113;
+    ABILITY_MIXIN_FIREWORKS_LAUNCHER = 114;
+    ABILITY_MIXIN_ATTACK_RESULT_CREATE_COUNT = 115;
+    ABILITY_MIXIN_UGC_TIME_CONTROL = 116;
+    ABILITY_MIXIN_AVATAR_COMBAT = 117;
+    ABILITY_MIXIN_DEATH_ZONE_REGIONAL_PLAY_MIXIN = 118;
+    ABILITY_MIXIN_UI_INTERACT = 119;
+    ABILITY_MIXIN_SHOOT_FROM_CAMERA = 120;
+    ABILITY_MIXIN_ERASE_BRICK_ACTIVITY = 121;
+    ABILITY_MIXIN_BREAKOUT = 122;
+}
+
+enum ModifierAction {
+    ADDED = 0;
+    REMOVED = 1;
+}

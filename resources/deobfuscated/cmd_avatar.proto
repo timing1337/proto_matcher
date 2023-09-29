@@ -1,0 +1,947 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message AvatarAddNotify {
+    optional AvatarInfo avatar = 13;
+    optional bool is_in_team = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1769;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarDelNotify {
+    repeated uint64 avatar_guid_list = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1773;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarTeam {
+    repeated uint64 avatar_guid_list = 7;
+    optional string team_name = 14;
+}
+
+message SetUpAvatarTeamReq {
+    optional uint32 team_id = 3;
+    repeated uint64 avatar_team_guid_list = 7;
+    optional uint64 cur_avatar_guid = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1690;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message SetUpAvatarTeamRsp {
+    repeated uint64 avatar_team_guid_list = 1;
+    optional uint32 team_id = 6;
+    optional int32 retcode = 8;
+    optional uint64 cur_avatar_guid = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1646;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ChooseCurAvatarTeamReq {
+    optional uint32 team_id = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1796;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ChooseCurAvatarTeamRsp {
+    optional uint32 cur_team_id = 1;
+    optional int32 retcode = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1661;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ChangeAvatarReq {
+    optional Vector move_pos = 15;
+    optional uint32 skill_id = 2;
+    optional uint64 guid = 7;
+    optional bool is_move = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1640;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ChangeAvatarRsp {
+    optional uint32 skill_id = 3;
+    optional int32 retcode = 10;
+    optional uint64 cur_guid = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1607;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarPromoteReq {
+    optional uint64 guid = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1664;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AvatarPromoteRsp {
+    optional uint64 guid = 11;
+    optional int32 retcode = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1639;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message SpringUseReq {
+    optional uint64 guid = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1748;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message SpringUseRsp {
+    optional uint64 guid = 3;
+    optional int32 retcode = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1642;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message RefreshBackgroundAvatarReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1743;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message RefreshBackgroundAvatarRsp {
+    map<uint64, uint32> hp_full_time_map = 15;
+    optional int32 retcode = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1800;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarTeamUpdateNotify {
+    map<uint32, AvatarTeam> avatar_team_map = 2;
+    repeated uint64 temp_avatar_guid_list = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1706;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarDataNotify {
+    repeated uint32 backup_avatar_team_order_list = 9;
+    repeated uint64 temp_avatar_guid_list = 12;
+    repeated AvatarInfo avatar_list = 6;
+    optional uint32 cur_avatar_team_id = 2;
+    repeated AvatarRenameInfo avatar_rename_list = 4;
+    repeated uint32 owned_flycloak_list = 1;
+    repeated uint32 owned_costume_list = 11;
+    map<uint32, AvatarTeam> avatar_team_map = 7;
+    optional uint64 choose_avatar_guid = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1633;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarUpgradeReq {
+    optional uint64 avatar_guid = 6;
+    optional uint32 count = 2;
+    optional uint32 item_id = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1770;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AvatarUpgradeRsp {
+    optional uint32 cur_level = 6;
+    optional uint32 old_level = 13;
+    map<uint32, float> old_fight_prop_map = 10;
+    optional int32 retcode = 1;
+    map<uint32, float> cur_fight_prop_map = 4;
+    optional uint64 avatar_guid = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1701;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarDieAnimationEndReq {
+    optional Vector reborn_pos = 3;
+    optional uint64 die_guid = 7;
+    optional uint32 skill_id = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1610;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AvatarDieAnimationEndRsp {
+    optional uint32 skill_id = 13;
+    optional int32 retcode = 14;
+    optional uint64 die_guid = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1694;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarChangeElementTypeReq {
+    optional uint32 scene_id = 7;
+    optional uint32 area_id = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1785;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AvatarChangeElementTypeRsp {
+    optional int32 retcode = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1651;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarFetterDataNotify {
+    map<uint64, AvatarFetterInfo> fetter_info_map = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1782;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarExpeditionDataNotify {
+    map<uint64, AvatarExpeditionInfo> expedition_info_map = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1771;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarExpeditionAllDataReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1722;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AvatarExpeditionAllDataRsp {
+    repeated uint32 open_expedition_list = 3;
+    optional int32 retcode = 15;
+    optional uint32 expedition_count_limit = 12;
+    map<uint64, AvatarExpeditionInfo> expedition_info_map = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1648;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarExpeditionStartReq {
+    optional uint32 exp_id = 9;
+    optional uint64 avatar_guid = 10;
+    optional uint32 hour_time = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1715;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AvatarExpeditionStartRsp {
+    map<uint64, AvatarExpeditionInfo> expedition_info_map = 2;
+    optional int32 retcode = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1719;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarExpeditionCallBackReq {
+    repeated uint64 avatar_guid = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1752;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AvatarExpeditionCallBackRsp {
+    map<uint64, AvatarExpeditionInfo> expedition_info_map = 9;
+    optional int32 retcode = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1726;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarExpeditionGetRewardReq {
+    optional uint64 avatar_guid = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1623;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AvatarExpeditionGetRewardRsp {
+    repeated ItemParam extra_item_list = 9;
+    repeated ItemParam item_list = 8;
+    map<uint64, AvatarExpeditionInfo> expedition_info_map = 12;
+    optional int32 retcode = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1784;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ChangeMpTeamAvatarReq {
+    optional uint64 cur_avatar_guid = 4;
+    repeated uint64 avatar_guid_list = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1708;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ChangeMpTeamAvatarRsp {
+    optional int32 retcode = 4;
+    repeated uint64 avatar_guid_list = 3;
+    optional uint64 cur_avatar_guid = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1753;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ChangeTeamNameReq {
+    optional int32 team_id = 8;
+    optional string team_name = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1603;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ChangeTeamNameRsp {
+    optional int32 retcode = 11;
+    optional string team_name = 2;
+    optional int32 team_id = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1666;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message SceneTeamAvatar {
+    optional AbilitySyncStateInfo avatar_ability_info = 5;
+    optional AvatarInfo avatar_info = 8;
+    optional bool is_on_scene = 152;
+    optional uint32 entity_id = 9;
+    optional uint64 avatar_guid = 15;
+    optional uint32 scene_id = 1;
+    optional uint32 weapon_entity_id = 7;
+    optional SceneAvatarInfo scene_avatar_info = 3;
+    optional uint64 weapon_guid = 4;
+    optional AbilitySyncStateInfo weapon_ability_info = 11;
+    optional SceneEntityInfo scene_entity_info = 12;
+    optional uint32 player_uid = 14;
+    optional bool is_reconnect = 6;
+    optional AbilityControlBlock ability_control_block = 2;
+    optional bool is_player_cur_avatar = 13;
+    repeated ServerBuff server_buff_list = 10;
+}
+
+message SceneTeamUpdateNotify {
+    repeated SceneTeamAvatar scene_team_avatar_list = 11;
+    optional bool is_in_mp = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1775;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message FocusAvatarReq {
+    optional uint64 avatar_guid = 1;
+    optional bool is_focus = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1654;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message FocusAvatarRsp {
+    optional int32 retcode = 5;
+    optional bool is_focus = 11;
+    optional uint64 avatar_guid = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1681;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarSatiationData {
+    optional float finish_time = 14;
+    optional uint64 avatar_guid = 13;
+    optional float penalty_finish_time = 12;
+}
+
+message AvatarSatiationDataNotify {
+    repeated AvatarSatiationData satiation_data_list = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1693;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarWearFlycloakReq {
+    optional uint64 avatar_guid = 11;
+    optional uint32 flycloak_id = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1737;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AvatarWearFlycloakRsp {
+    optional uint32 flycloak_id = 13;
+    optional uint64 avatar_guid = 7;
+    optional int32 retcode = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1698;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarFlycloakChangeNotify {
+    optional uint32 flycloak_id = 8;
+    optional uint64 avatar_guid = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1643;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarGainFlycloakNotify {
+    optional uint32 flycloak_id = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1656;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarEquipAffixStartNotify {
+    optional uint64 avatar_guid = 4;
+    optional AvatarEquipAffixInfo equip_affix_info = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1662;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarFetterLevelRewardReq {
+    optional uint64 avatar_guid = 1;
+    optional uint32 fetter_level = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1653;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AvatarFetterLevelRewardRsp {
+    optional uint64 avatar_guid = 4;
+    optional uint32 reward_id = 1;
+    optional int32 retcode = 13;
+    optional uint32 fetter_level = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1606;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AddNoGachaAvatarCardTransferItem {
+    optional uint32 count = 9;
+    optional uint32 item_id = 6;
+    optional bool is_new = 15;
+}
+
+message AddNoGachaAvatarCardNotify {
+    repeated AddNoGachaAvatarCardTransferItem transfer_item_list = 4;
+    optional uint32 initial_promote_level = 2;
+    optional uint32 avatar_id = 8;
+    optional bool is_transfer_to_item = 6;
+    optional uint32 reason = 9;
+    optional uint32 initial_level = 10;
+    optional uint32 item_id = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1655;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarPromoteGetRewardReq {
+    optional uint64 avatar_guid = 7;
+    optional uint32 promote_level = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1696;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AvatarPromoteGetRewardRsp {
+    optional int32 retcode = 10;
+    optional uint32 reward_id = 15;
+    optional uint64 avatar_guid = 11;
+    optional uint32 promote_level = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1683;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarChangeCostumeReq {
+    optional uint32 costume_id = 4;
+    optional uint64 avatar_guid = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1778;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AvatarChangeCostumeRsp {
+    optional uint64 avatar_guid = 12;
+    optional int32 retcode = 7;
+    optional uint32 costume_id = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1645;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarChangeCostumeNotify {
+    optional SceneEntityInfo entity_info = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1644;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarGainCostumeNotify {
+    optional uint32 costume_id = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1677;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarChangeAnimHashReq {
+    optional uint32 anim_hash = 6;
+    optional uint64 avatar_guid = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1711;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AvatarChangeAnimHashRsp {
+    optional uint32 anim_hash = 13;
+    optional int32 retcode = 5;
+    optional uint64 avatar_guid = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1647;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message PersistentDungeonSwitchAvatarReq {
+    optional uint64 cur_avatar_guid = 8;
+    repeated uint64 avatar_team_guid_list = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1684;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message PersistentDungeonSwitchAvatarRsp {
+    repeated uint64 avatar_team_guid_list = 14;
+    optional int32 retcode = 7;
+    optional uint64 cur_avatar_guid = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1768;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AddBackupAvatarTeamReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1687;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AddBackupAvatarTeamRsp {
+    optional int32 retcode = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1735;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message DelBackupAvatarTeamReq {
+    optional uint32 backup_avatar_team_id = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1731;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message DelBackupAvatarTeamRsp {
+    optional uint32 backup_avatar_team_id = 15;
+    optional int32 retcode = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1729;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarTeamAllDataNotify {
+    repeated uint64 temp_avatar_guid_list = 6;
+    map<uint32, AvatarTeam> avatar_team_map = 3;
+    repeated uint32 backup_avatar_team_order_list = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1749;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarRenameInfo {
+    optional string avatar_name = 3;
+    optional uint32 avatar_id = 12;
+}
+
+message AvatarRenameInfoNotify {
+    repeated AvatarRenameInfo avatar_rename_list = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1680;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ItemRenameAvatarReq {
+    optional uint32 rename_id = 2;
+    optional string avatar_name = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1750;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ItemRenameAvatarRsp {
+    optional uint32 rename_id = 15;
+    optional uint32 cd_time = 2;
+    optional int32 retcode = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1635;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}

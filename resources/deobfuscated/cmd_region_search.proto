@@ -1,0 +1,90 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message RegionSearch {
+    optional bool is_entered = 13;
+    optional uint32 progress = 5;
+    optional RegionSearchState state = 2;
+    optional uint32 region_search_id = 8;
+}
+
+message RegionSearchInfo {
+    optional uint32 id = 5;
+    repeated RegionSearch region_search_list = 1;
+    optional bool is_entered = 7;
+}
+
+message RegionSearchNotify {
+    repeated RegionSearchInfo region_search_list = 1;
+    optional uint32 uid = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5626;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message RegionSearchChangeRegionNotify {
+    optional RegionEvent event = 1;
+    enum RegionEvent {
+        REGION_EVENT_NONE = 0;
+        REGION_EVENT_ENTER = 1;
+        REGION_EVENT_LEAVE = 2;
+    }
+    
+    optional uint32 region_id = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5618;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message TakeRegionSearchRewardReq {
+    optional uint32 search_id = 3;
+    optional uint32 id = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5625;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message TakeRegionSearchRewardRsp {
+    optional uint32 search_id = 14;
+    optional uint32 id = 1;
+    optional int32 retcode = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5607;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GetRegionSearchReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5602;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}

@@ -1,0 +1,66 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message AranaraCollectionSuite {
+    map<uint32, AranaraCollectionState> collection_id_state_map = 6;
+    optional uint32 collection_type = 12;
+}
+
+message AranaraCollectionDataNotify {
+    repeated AranaraCollectionSuite collection_suite_list = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6376;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AddAranaraCollectionNotify {
+    optional uint32 collection_type = 7;
+    optional AranaraCollectionState target_state = 12;
+    optional AranaraCollectionState from_state = 15;
+    optional uint32 collection_id = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6368;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CataLogGlobalWatcherFinishedData {
+    repeated uint32 finished_global_watcher_list = 8;
+    optional uint32 catalog_type = 13;
+}
+
+message CataLogFinishedGlobalWatcherAllDataNotify {
+    repeated CataLogGlobalWatcherFinishedData finished_global_watcher_data_list = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6370;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CataLogNewFinishedGlobalWatcherNotify {
+    repeated CataLogGlobalWatcherFinishedData new_finished_global_watcher_data_list = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6395;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}

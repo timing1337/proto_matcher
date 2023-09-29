@@ -1,0 +1,184 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message DraftOwnerStartInviteReq {
+    optional uint32 draft_id = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5412;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message DraftInviteFailInfo {
+    optional uint32 uid = 8;
+    optional DraftInviteFailReason reason = 5;
+}
+
+message DraftOwnerStartInviteRsp {
+    repeated DraftInviteFailInfo invite_fail_info_list = 15;
+    optional int32 retcode = 9;
+    optional uint32 wrong_uid = 3;
+    optional uint32 draft_id = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5435;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message DraftOwnerInviteNotify {
+    optional uint32 draft_id = 4;
+    optional uint32 invite_deadline_time = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5407;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message DraftGuestReplyInviteReq {
+    optional uint32 draft_id = 10;
+    optional bool is_agree = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5421;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message DraftGuestReplyInviteRsp {
+    optional uint32 draft_id = 3;
+    optional int32 retcode = 1;
+    optional bool is_agree = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5403;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message DraftGuestReplyInviteNotify {
+    optional uint32 draft_id = 5;
+    optional bool is_agree = 9;
+    optional uint32 guest_uid = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5490;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message DraftInviteResultNotify {
+    optional bool is_all_argee = 9;
+    optional uint32 draft_id = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5473;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message DraftOwnerTwiceConfirmNotify {
+    optional uint32 twice_confirm_deadline_time = 15;
+    optional uint32 draft_id = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5499;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message DraftGuestReplyTwiceConfirmReq {
+    optional bool is_agree = 15;
+    optional uint32 draft_id = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5431;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message DraftGuestReplyTwiceConfirmRsp {
+    optional uint32 draft_id = 5;
+    optional bool is_agree = 13;
+    optional int32 retcode = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5475;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message DraftTwiceConfirmResultNotify {
+    optional bool is_all_argee = 7;
+    optional uint32 draft_id = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5448;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message DraftGuestReplyTwiceConfirmNotify {
+    optional bool is_agree = 14;
+    optional uint32 draft_id = 15;
+    optional uint32 guest_uid = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5497;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+enum DraftInviteFailReason {
+    DRAFT_FAIL_UNKNOWN = 0;
+    DRAFT_ACTIVITY_NOT_OPEN = 1;
+    DRAFT_ACTIVITY_PLAY_NOT_OPEN = 2;
+    DRAFT_SCENE_NOT_MEET = 3;
+    DRAFT_WORLD_NOT_MEET = 4;
+    DRAFT_PLAY_LIMIT_NOT_MEET = 5;
+}

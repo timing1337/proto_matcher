@@ -1,0 +1,274 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message CityReputationQuestInfo {
+    optional bool is_open = 2;
+    repeated uint32 taken_parent_quest_reward_list = 12;
+    repeated uint32 finished_parent_quest_list = 7;
+}
+
+message CityReputationRequestInfo {
+    optional bool is_open = 2;
+    
+    repeated RequestInfo request_info_list = 1;
+    message RequestInfo {
+        optional uint32 request_id = 3;
+        optional uint32 quest_id = 9;
+        optional bool is_taken_reward = 6;
+    }
+}
+
+message CityReputationExploreInfo {
+    repeated uint32 taken_explore_reward_list = 2;
+    optional uint32 explore_percent = 14;
+    optional bool is_open = 15;
+}
+
+message CityReputationHuntInfo {
+    optional bool is_open = 6;
+    optional uint32 cur_week_finish_num = 15;
+    optional bool has_reward = 5;
+}
+
+message CityReputationInfo {
+    optional uint32 level = 4;
+    optional uint32 next_refresh_time = 3;
+    optional CityReputationHuntInfo hunt_info = 11;
+    repeated uint32 taken_level_reward_list = 2;
+    optional uint32 total_accept_request_num = 6;
+    optional CityReputationRequestInfo request_info = 5;
+    optional CityReputationQuestInfo quest_info = 9;
+    optional uint32 exp = 13;
+    optional CityReputationExploreInfo explore_info = 10;
+}
+
+message GetCityReputationInfoReq {
+    optional uint32 city_id = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2872;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetCityReputationInfoRsp {
+    optional uint32 city_id = 1;
+    optional int32 retcode = 4;
+    optional CityReputationInfo city_reputation_info = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2898;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message TakeCityReputationLevelRewardReq {
+    optional uint32 level = 11;
+    optional uint32 city_id = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2812;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message TakeCityReputationLevelRewardRsp {
+    optional uint32 city_id = 15;
+    optional int32 retcode = 11;
+    repeated ItemParam item_list = 13;
+    optional uint32 level = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2835;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CityReputationLevelupNotify {
+    optional uint32 city_id = 12;
+    optional uint32 level = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2807;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message TakeCityReputationParentQuestReq {
+    optional uint32 city_id = 1;
+    repeated uint32 parent_quest_list = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2821;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message TakeCityReputationParentQuestRsp {
+    optional int32 retcode = 7;
+    optional uint32 city_id = 14;
+    repeated uint32 parent_quest_list = 9;
+    repeated ItemParam item_list = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2803;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AcceptCityReputationRequestReq {
+    optional uint32 city_id = 14;
+    optional uint32 request_id = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2890;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AcceptCityReputationRequestRsp {
+    optional uint32 request_id = 5;
+    optional uint32 city_id = 13;
+    optional int32 retcode = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2873;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CancelCityReputationRequestReq {
+    optional uint32 request_id = 10;
+    optional uint32 city_id = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2899;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message CancelCityReputationRequestRsp {
+    optional uint32 city_id = 3;
+    optional int32 retcode = 2;
+    optional uint32 request_id = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2831;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GetCityReputationMapInfoReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2875;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetCityReputationMapInfoRsp {
+    optional int32 retcode = 11;
+    optional bool is_new_hunting = 10;
+    optional bool is_new_request = 2;
+    repeated uint32 unlock_hunting_city_list = 9;
+    repeated uint32 reward_city_list = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2848;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message TakeCityReputationExploreRewardReq {
+    optional uint32 city_id = 15;
+    repeated uint32 explore_id_list = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2897;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message TakeCityReputationExploreRewardRsp {
+    repeated uint32 explore_id_list = 8;
+    repeated ItemParam item_list = 12;
+    optional int32 retcode = 6;
+    optional uint32 city_id = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2881;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CityReputationSimpleInfo {
+    optional uint32 level = 15;
+    optional uint32 city_id = 9;
+}
+
+message CityReputationDataNotify {
+    repeated CityReputationSimpleInfo simple_info_list = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2805;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}

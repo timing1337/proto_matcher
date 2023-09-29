@@ -1,0 +1,259 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message UnlockAvatarTalentReq {
+    optional uint32 talent_id = 13;
+    optional uint64 avatar_guid = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1072;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message UnlockAvatarTalentRsp {
+    optional uint32 talent_id = 2;
+    optional int32 retcode = 3;
+    optional uint64 avatar_guid = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1098;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarUnlockTalentNotify {
+    optional uint32 entity_id = 14;
+    optional uint64 avatar_guid = 13;
+    optional uint32 talent_id = 10;
+    optional uint32 skill_depot_id = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1012;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarSkillDepotChangeNotify {
+    optional uint32 skill_depot_id = 15;
+    map<uint32, uint32> proud_skill_extra_level_map = 14;
+    repeated uint32 talent_id_list = 9;
+    repeated uint32 proud_skill_list = 4;
+    optional uint32 core_proud_skill_level = 2;
+    optional uint32 entity_id = 7;
+    optional uint64 avatar_guid = 12;
+    map<uint32, uint32> skill_level_map = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1035;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message BigTalentPointConvertReq {
+    repeated uint64 item_guid_list = 6;
+    optional uint64 avatar_guid = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1007;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message BigTalentPointConvertRsp {
+    optional int32 retcode = 1;
+    optional uint64 avatar_guid = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1021;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarSkillMaxChargeCountNotify {
+    optional uint32 skill_id = 6;
+    optional uint32 max_charge_count = 11;
+    optional uint64 avatar_guid = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1003;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarSkillInfoNotify {
+    map<uint32, AvatarSkillInfo> skill_map = 11;
+    optional uint64 guid = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1090;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ProudSkillUpgradeReq {
+    optional uint64 avatar_guid = 5;
+    optional uint32 old_proud_skill_level = 4;
+    optional uint32 proud_skill_id = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1073;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ProudSkillUpgradeRsp {
+    optional uint64 avatar_guid = 6;
+    optional uint32 proud_skill_id = 10;
+    optional int32 retcode = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1099;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ProudSkillChangeNotify {
+    optional uint64 avatar_guid = 11;
+    optional uint32 entity_id = 4;
+    optional uint32 skill_depot_id = 8;
+    repeated uint32 proud_skill_list = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1031;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarSkillUpgradeReq {
+    optional uint64 avatar_guid = 7;
+    optional uint32 old_level = 3;
+    optional uint32 avatar_skill_id = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1075;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message AvatarSkillUpgradeRsp {
+    optional uint64 avatar_guid = 11;
+    optional uint32 cur_level = 14;
+    optional uint32 avatar_skill_id = 9;
+    optional uint32 old_level = 3;
+    optional int32 retcode = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1048;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarSkillChangeNotify {
+    optional uint32 cur_level = 11;
+    optional uint64 avatar_guid = 2;
+    optional uint32 entity_id = 7;
+    optional uint32 skill_depot_id = 13;
+    optional uint32 old_level = 1;
+    optional uint32 avatar_skill_id = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1097;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ProudSkillExtraLevelNotify {
+    optional uint32 talent_type = 11;
+    optional uint32 talent_index = 8;
+    optional uint64 avatar_guid = 15;
+    optional uint32 extra_level = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1081;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CanUseSkillNotify {
+    optional bool is_can_use_skill = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1005;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarTeamResonanceInfo {
+    repeated uint32 add_team_resonance_id_list = 5;
+    optional uint32 entity_id = 11;
+    optional uint64 avatar_guid = 3;
+    repeated uint32 del_team_resonance_id_list = 14;
+}
+
+message TeamResonanceChangeNotify {
+    repeated AvatarTeamResonanceInfo info_list = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1082;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}

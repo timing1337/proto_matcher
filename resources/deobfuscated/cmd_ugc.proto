@@ -1,0 +1,271 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+import "cmd_social.proto";
+
+message UgcMusicNote {
+    optional uint32 start_time = 12;
+    optional uint32 end_time = 5;
+}
+
+message UgcMusicTrack {
+    repeated UgcMusicNote music_note_list = 6;
+}
+
+message UgcMusicRecord {
+    repeated UgcMusicTrack music_track_list = 4;
+    optional uint32 music_id = 13;
+}
+
+message UgcMusicBriefInfo {
+    optional uint64 import_from_ugc_guid = 5;
+    optional bool is_published = 8;
+    optional bool is_played = 1;
+    optional uint32 music_id = 2;
+    optional uint32 save_page_type = 1182;
+    optional uint32 save_idx = 12;
+    optional string creator_nickname = 10;
+    optional uint32 version = 15;
+    optional uint32 save_time = 3;
+    repeated uint32 after_note_list = 1002;
+    repeated uint32 before_note_list = 982;
+    optional bool is_psn_platform = 9;
+    optional uint32 time_line_edit_time = 1822;
+    optional bool is_changed_after_publish = 11;
+    optional uint32 publish_time = 13;
+    optional uint32 max_score = 14;
+    optional uint32 real_time_edit_time = 576;
+    optional uint32 note_count = 7;
+    optional uint64 ugc_guid = 4;
+    optional uint32 self_max_score = 6;
+}
+
+message GetUgcReq {
+    optional UgcType ugc_type = 8;
+    optional uint64 ugc_guid = 5;
+    optional RecordUsage ugc_record_usage = 6;
+    optional bool is_require_brief = 11;
+    optional GetUgcType get_ugc_type = 13;
+
+    //3.6.50
+    optional uint32 schedule_id = 1001;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6326;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetUgcRsp {
+    optional uint64 ugc_guid = 15;
+    optional UgcType ugc_type = 10;
+    optional int32 retcode = 2;
+    optional RecordUsage ugc_record_usage = 14;
+    
+    oneof record {
+        UgcMusicRecord music_record = 4;
+    }
+    
+    oneof brief {
+        UgcMusicBriefInfo music_brief_info = 1819;
+    }
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6318;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GetUgcBriefInfoReq {
+    optional uint64 ugc_guid = 7;
+    optional UgcType ugc_type = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6325;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetUgcBriefInfoRsp {
+    optional uint64 ugc_guid = 3;
+    optional UgcType ugc_type = 11;
+    optional int32 retcode = 4;
+    
+    oneof brief {
+        UgcMusicBriefInfo music_brief_info = 2;
+    }
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6307;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message SaveUgcReq {
+    optional UgcType ugc_type = 11;
+    
+    oneof record {
+        UgcMusicRecord music_record = 2;
+    }
+    
+    oneof brief {
+        UgcMusicBriefInfo music_brief_info = 1488;
+    }
+
+    //3.6.50
+    optional uint32 schedule_id = 1001;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6329;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message SaveUgcRsp {
+    optional int32 retcode = 15;
+    optional uint64 ugc_guid = 8;
+    optional UgcType ugc_type = 1;
+    //3.6.50
+	optional bool JGOOBHBPNBO = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6322;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message PublishUgcReq {
+    optional UgcType ugc_type = 7;
+    optional uint64 ugc_guid = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6344;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message PublishUgcRsp {
+    optional uint64 ugc_guid = 14;
+    optional int32 retcode = 15;
+    optional UgcType ugc_type = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6349;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CheckUgcUpdateReq {
+    optional UgcType ugc_type = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6320;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message CheckUgcUpdateRsp {
+    repeated uint64 update_ugc_guid_list = 15;
+    optional int32 retcode = 10;
+    optional UgcType ugc_type = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6345;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message UgcNotify {
+    optional bool is_ugc_publish_ban = 12;
+    optional bool is_ugc_publish_feature_closed = 8;
+    optional bool is_ugc_feature_closed = 15;
+
+    optional bool UgcNotify_3650_Unknown_1 = 1000;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6341;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CheckUgcStateReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6342;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message CheckUgcStateRsp {
+    optional int32 retcode = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 6314;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+enum UgcType {
+    UGC_TYPE_NONE = 0;
+    UGC_TYPE_MUSIC_GAME = 1;
+}
+
+enum GetUgcType {
+    GET_UGC_NONE = 0;
+    GET_UGC_TYPE_MINE = 1;
+    GET_UGC_TYPE_PUBLISH = 2;
+}
+
+enum RecordUsage {
+    UGC_RECORD_USAGE_NONE = 0;
+    UGC_RECORD_USAGE_IMPORT = 1;
+    UGC_RECORD_USAGE_PLAY = 2;
+    UGC_RECORD_USAGE_TRIAL = 3;
+    UGC_RECORD_USAGE_COMPARE = 4;
+}

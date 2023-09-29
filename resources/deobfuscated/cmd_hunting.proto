@@ -1,0 +1,213 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message HuntingPair {
+    optional uint32 refresh_id = 9;
+    optional uint32 monster_config_id = 4;
+}
+
+message TakeHuntingOfferReq {
+    optional HuntingPair hunting_pair = 14;
+    optional uint32 city_id = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4326;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message TakeHuntingOfferRsp {
+    optional HuntingPair hunting_pair = 13;
+    optional uint32 city_id = 14;
+    optional int32 retcode = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4318;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message HuntingOfferData {
+    optional HuntingPair hunting_pair = 4;
+    optional uint32 city_id = 8;
+    optional HuntingOfferState state = 1;
+}
+
+message GetCityHuntingOfferReq {
+    optional uint32 city_id = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4325;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetCityHuntingOfferRsp {
+    optional int32 retcode = 9;
+    repeated HuntingOfferData hunting_offer_list = 13;
+    optional uint32 city_id = 2;
+    optional HuntingPair ongoing_hunting_pair = 8;
+    optional uint32 cur_week_finished_count = 1;
+    optional uint32 next_refresh_time = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4307;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GetHuntingOfferRewardReq {
+    optional uint32 city_id = 6;
+    optional HuntingPair hunting_pair = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4302;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetHuntingOfferRewardRsp {
+    optional HuntingPair hunting_pair = 14;
+    optional uint32 city_id = 3;
+    optional int32 retcode = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4331;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message HuntingStartNotify {
+    optional Vector clue_position = 4;
+    optional uint32 fail_time = 15;
+    optional HuntingPair hunting_pair = 3;
+    optional bool is_final = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4329;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message HuntingRevealClueNotify {
+    optional uint32 finish_clue_count = 5;
+    optional Vector clue_position = 4;
+    optional HuntingPair hunting_pair = 12;
+    optional uint32 finished_group_id = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4322;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message HuntingRevealFinalNotify {
+    optional uint32 finished_group_id = 5;
+    optional HuntingPair hunting_pair = 11;
+    optional Vector final_position = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4344;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message HuntingSuccessNotify {
+    optional HuntingPair hunting_pair = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4349;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message HuntingFailNotify {
+    optional HuntingPair hunting_pair = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4320;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message HuntingOngoingNotify {
+    optional HuntingPair hunting_pair = 15;
+    optional bool is_started = 8;
+    optional Vector next_position = 3;
+    optional uint32 finish_clue_count = 10;
+    optional bool is_final = 14;
+    optional uint32 fail_time = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4345;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message HuntingGiveUpReq {
+    optional HuntingPair hunting_pair = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4341;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message HuntingGiveUpRsp {
+    optional int32 retcode = 3;
+    optional HuntingPair hunting_pair = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4342;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}

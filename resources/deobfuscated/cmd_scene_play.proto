@@ -1,0 +1,279 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message ScenePlayBattleInfo {
+    optional uint32 mode = 4;
+    repeated uint32 progress_stage_list = 3;
+    optional uint32 start_time = 10;
+    optional uint32 duration = 14;
+    optional uint32 play_type = 12;
+    optional uint32 play_id = 1;
+    optional uint32 prepare_end_time = 7;
+    optional uint32 progress = 11;
+    optional uint32 state = 8;
+    optional uint32 type = 9;
+}
+
+message ScenePlayBattleInfoNotify {
+    optional ScenePlayBattleInfo battle_info = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4422;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ScenePlayOwnerCheckReq {
+    optional uint32 play_id = 9;
+    optional bool is_skip_match = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4448;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ScenePlayOwnerCheckRsp {
+    repeated uint32 param_list = 8;
+    optional bool is_skip_match = 1;
+    optional uint32 play_id = 9;
+    optional uint32 wrong_uid = 5;
+    optional int32 retcode = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4362;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ScenePlayOwnerStartInviteReq {
+    optional bool is_skip_match = 8;
+    optional uint32 play_id = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4385;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ScenePlayOwnerStartInviteRsp {
+    optional bool is_skip_match = 7;
+    optional int32 retcode = 15;
+    optional uint32 play_id = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4357;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ScenePlayOwnerInviteNotify {
+    optional uint32 invite_cd = 14;
+    optional uint32 play_id = 5;
+    optional bool is_remain_reward = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4371;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ScenePlayGuestReplyInviteReq {
+    optional bool is_agree = 15;
+    optional uint32 play_id = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4353;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ScenePlayGuestReplyInviteRsp {
+    optional int32 retcode = 6;
+    optional bool is_agree = 2;
+    optional uint32 play_id = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4440;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ScenePlayGuestReplyNotify {
+    optional uint32 play_id = 13;
+    optional uint32 guest_uid = 12;
+    optional bool is_agree = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4423;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ScenePlayInviteResultNotify {
+    optional bool is_all_argee = 11;
+    optional uint32 play_id = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4449;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ScenePlayInfo {
+    optional uint32 entry_id = 15;
+    optional uint32 play_id = 11;
+    optional uint32 play_type = 3;
+    optional bool is_open = 9;
+}
+
+message ScenePlayInfoListNotify {
+    repeated ScenePlayInfo play_info_list = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4381;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ScenePlayBattleInterruptNotify {
+    optional uint32 interrupt_state = 6;
+    optional uint32 play_id = 5;
+    optional uint32 play_type = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4425;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ScenePlayBattleSettlePlayerInfo {
+    repeated ExhibitionDisplayInfo card_list = 14;
+    optional ProfilePicture profile_picture = 10;
+    optional uint32 head_image = 11;
+    optional uint32 statistic_id = 4;
+    optional uint32 uid = 1;
+    optional int64 param = 5;
+    optional string online_id = 12;
+    optional string nickname = 15;
+}
+
+message ScenePlayBattleSettleRewardInfo {
+    repeated ItemParam reward_item_list = 4;
+    optional uint32 uid = 3;
+}
+
+message ScenePlayBattleResultNotify {
+    optional bool is_win = 1;
+    optional uint32 cost_time = 7;
+    optional uint32 play_type = 15;
+    optional uint32 play_id = 11;
+    repeated ScenePlayBattleSettlePlayerInfo settle_player_info_list = 4;
+    repeated ScenePlayBattleSettleRewardInfo settle_reward_info_list = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4398;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ScenePlayBattleUidOpNotify {
+    optional uint32 op = 7;
+    repeated uint32 param_target_list = 9;
+    optional uint32 entity_id = 2;
+    optional string param_str = 3;
+    repeated uint32 uid_list = 6;
+    optional uint32 param_index = 11;
+    optional uint32 play_type = 8;
+    optional uint32 param_duration = 12;
+    repeated uint32 param_list = 15;
+    optional uint32 play_id = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4447;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ScenePlayBattleInfoListNotify {
+    repeated ScenePlayBattleInfo battle_info_list = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4431;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ScenePlayOutofRegionNotify {
+    optional uint32 play_id = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 4355;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+enum ScenePlayBattleState {
+    SCENE_PLAY_BATTLE_NONE = 0;
+    SCENE_PLAY_BATTLE_INIT = 1;
+    SCENE_PLAY_BATTLE_PREPARE = 2;
+    SCENE_PLAY_BATTLE_READY = 3;
+    SCENE_PLAY_BATTLE_PRESTART = 4;
+    SCENE_PLAY_BATTLE_START = 5;
+    SCENE_PLAY_BATTLE_STOP = 6;
+}

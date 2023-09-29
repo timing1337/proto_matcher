@@ -1,0 +1,128 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message BlossomBriefInfo {
+    optional uint32 refresh_id = 13;
+    optional uint32 reward_id = 5;
+    optional uint32 city_id = 10;
+    optional uint32 resin = 11;
+    optional uint32 state = 7;
+    optional bool is_guide_opened = 1;
+    optional uint32 monster_level = 8;
+    optional uint32 circle_camp_id = 15;
+    optional Vector pos = 12;
+    optional uint32 scene_id = 9;
+}
+
+message GetBlossomBriefInfoListReq {
+    repeated uint32 city_id_list = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2772;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetBlossomBriefInfoListRsp {
+    optional int32 retcode = 12;
+    repeated BlossomBriefInfo brief_info_list = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2798;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message BlossomBriefInfoNotify {
+    repeated BlossomBriefInfo brief_info_list = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2712;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message WorldOwnerBlossomBriefInfoNotify {
+    repeated BlossomBriefInfo brief_info_list = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2735;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message BlossomScheduleInfo {
+    optional uint32 progress = 13;
+    optional uint32 state = 10;
+    optional uint32 round = 4;
+    optional uint32 circle_camp_id = 15;
+    optional uint32 refresh_id = 6;
+    optional uint32 finish_progress = 14;
+}
+
+message WorldOwnerBlossomScheduleInfoNotify {
+    optional BlossomScheduleInfo schedule_info = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2707;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message BlossomChestCreateNotify {
+    optional uint32 refresh_id = 1;
+    optional uint32 circle_camp_id = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2721;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message OpenBlossomCircleCampGuideNotify {
+    optional uint32 refresh_id = 7;
+    repeated uint32 circle_camp_id_list = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2703;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+enum BlossomScheduleState {
+    BLOSSOM_SCHEDULE_NONE = 0;
+    BLOSSOM_SCHEDULE_INIT = 1;
+    BLOSSOM_SCHEDULE_IN_PROGRESS = 2;
+    BLOSSOM_SCHEDULE_REWARD = 3;
+}

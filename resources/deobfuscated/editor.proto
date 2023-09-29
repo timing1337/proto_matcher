@@ -1,0 +1,27 @@
+syntax = "proto2";
+
+
+
+message MapInfo {
+    optional int32 minx = 1;
+    optional int32 maxx = 2;
+    optional int32 minz = 3;
+    optional int32 maxz = 4;
+    repeated CellInfo cells = 5;
+}
+
+message CellInfo {
+    optional SceneSurfaceMaterial type = 1;
+    optional int32 y = 2;
+}
+
+enum SceneSurfaceMaterial {
+    Invalid = 0;
+    Grass = 1;
+    Dirt = 2;
+    Rock = 3;
+    Snow = 4;
+    Water = 5;
+    Tile = 6;
+    Sand = 7;
+}

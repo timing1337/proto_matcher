@@ -1,0 +1,32 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message AISnapshotEntitySkillCycle {
+    optional bool failed = 12;
+    optional bool trydoskill = 8;
+    optional bool success = 9;
+    optional bool selected = 1;
+    optional uint32 skill_id = 2;
+}
+
+message AISnapshotEntityData {
+    optional float tick_time = 5;
+    optional uint32 tactic = 2;
+    repeated AISnapshotEntitySkillCycle finished_skill_cycles = 9;
+    optional float moved_distance = 4;
+    optional uint32 ai_target_id = 13;
+    optional uint32 threat_target_id = 3;
+    optional uint32 threat_list_size = 1;
+    optional uint32 entity_id = 15;
+    map<uint32, uint32> hitting_avatars = 7;
+    optional float distance_to_player = 11;
+    optional uint32 attack_target_id = 10;
+    optional float real_time = 14;
+}
+
+message AISnapshotInfo {
+    repeated AISnapshotEntityData ai_snapshots = 13;
+}

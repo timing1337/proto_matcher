@@ -1,0 +1,323 @@
+syntax = "proto2";
+
+
+
+message ReunionSignInInfo {
+    optional uint32 sign_in_count = 6;
+    repeated uint32 reward_day_list = 8;
+    optional uint32 config_id = 12;
+    optional uint32 last_sign_in_time = 11;
+}
+
+message ReunionWatcherInfo {
+    optional uint32 reward_unlock_time = 12;
+    optional uint32 watcher_id = 3;
+    optional uint32 total_progress = 4;
+    optional uint32 cur_progress = 11;
+    optional bool is_taken_reward = 14;
+}
+
+message ReunionMissionInfo {
+    repeated ReunionWatcherInfo cur_day_watcher_list = 3;
+    optional uint32 cur_score = 11;
+    optional bool is_taken_reward = 8;
+    repeated bool is_taken_reward_list = 6;
+    optional uint32 next_refresh_time = 5;
+    optional bool is_finished = 9;
+    optional uint32 mission_id = 12;
+    repeated ReunionWatcherInfo watcher_list = 2;
+}
+
+message ReunionPrivilegeInfo {
+    optional uint32 cur_day_count = 7;
+    optional uint32 total_count = 10;
+    optional uint32 privilege_id = 4;
+}
+
+message ReunionBriefInfo {
+    optional uint32 first_gift_reward_id = 15;
+    optional uint32 privilege_id = 5;
+    optional uint32 mission_id = 10;
+    optional uint32 first_day_start_time = 3;
+    optional bool sign_in_has_reward = 2;
+    optional uint32 start_time = 7;
+    optional bool is_taken_first_gift = 8;
+    optional uint32 finish_time = 12;
+    optional bool mission_has_reward = 9;
+    optional ReunionPrivilegeInfo privilege_info = 14;
+    optional string version = 13;
+    optional uint32 sign_in_config_id = 6;
+}
+
+message ReunionBriefInfoReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5076;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message ReunionBriefInfoRsp {
+    optional bool is_activate = 13;
+    optional int32 retcode = 14;
+    optional ReunionBriefInfo reunion_brief_info = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5068;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message TakeReunionFirstGiftRewardReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5075;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message TakeReunionFirstGiftRewardRsp {
+    optional int32 reward_id = 9;
+    optional int32 retcode = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5057;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GetReunionSignInInfoReq {
+    optional uint32 sign_in_config_id = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5052;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetReunionSignInInfoRsp {
+    optional ReunionSignInInfo sign_in_info = 5;
+    optional int32 retcode = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5081;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message TakeReunionSignInRewardReq {
+    optional uint32 reward_day = 12;
+    optional uint32 config_id = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5079;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message TakeReunionSignInRewardRsp {
+    optional ReunionSignInInfo sign_in_info = 10;
+    optional int32 retcode = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5072;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GetReunionMissionInfoReq {
+    optional uint32 mission_id = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5094;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetReunionMissionInfoRsp {
+    optional int32 retcode = 9;
+    optional ReunionMissionInfo mission_info = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5099;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message TakeReunionWatcherRewardReq {
+    optional uint32 watcher_id = 12;
+    optional uint32 mission_id = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5070;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message TakeReunionWatcherRewardRsp {
+    optional uint32 mission_id = 15;
+    optional uint32 watcher_id = 9;
+    optional int32 retcode = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5095;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message UpdateReunionWatcherNotify {
+    optional uint32 mission_id = 3;
+    optional ReunionWatcherInfo watcher_info = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5091;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message TakeReunionMissionRewardReq {
+    optional uint32 reward_id = 7;
+    optional uint32 reward_index = 4;
+    optional uint32 mission_id = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5092;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message TakeReunionMissionRewardRsp {
+    optional uint32 reward_index = 12;
+    optional int32 retcode = 2;
+    optional ReunionMissionInfo mission_info = 9;
+    optional uint32 reward_id = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5064;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetReunionPrivilegeInfoReq {
+    optional uint32 privilege_id = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5097;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetReunionPrivilegeInfoRsp {
+    optional int32 retcode = 3;
+    optional ReunionPrivilegeInfo privilege_info = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5087;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ReunionSettleNotify {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5073;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ReunionActivateNotify {
+    optional bool is_activate = 9;
+    optional ReunionBriefInfo reunion_brief_info = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5085;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ReunionPrivilegeChangeNotify {
+    optional ReunionPrivilegeInfo privilege_info = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5098;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ReunionDailyRefreshNotify {
+    optional ReunionBriefInfo reunion_brief_info = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5100;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}

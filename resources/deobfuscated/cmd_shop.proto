@@ -1,0 +1,199 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message ShopGoods {
+    optional uint32 discount_end_time = 258;
+    optional uint32 min_level = 8;
+    optional uint32 end_time = 11;
+    repeated ItemParam cost_item_list = 3;
+    optional uint32 secondary_sheet_id = 318;
+    optional uint32 hcoin = 1;
+    optional uint32 mcoin = 14;
+    optional uint32 discount_id = 1998;
+    optional uint32 single_limit = 247;
+    optional uint32 goods_id = 13;
+    optional uint32 next_refresh_time = 7;
+    optional uint32 max_level = 4;
+    optional uint32 disable_type = 6;
+    optional uint32 discount_begin_time = 574;
+    repeated uint32 pre_goods_id_list = 2;
+    optional uint32 begin_time = 5;
+    optional uint32 scoin = 15;
+    optional uint32 bought_num = 10;
+    optional uint32 buy_limit = 12;
+    optional ItemParam goods_item = 9;
+}
+
+message Shop {
+    repeated ShopConcertProduct concert_product_list = 3;
+    repeated ShopGoods goods_list = 15;
+    optional uint32 city_reputation_level = 2;
+    repeated ShopCardProduct card_product_list = 14;
+    repeated ShopMcoinProduct mcoin_product_list = 7;
+    optional uint32 next_refresh_time = 11;
+    optional uint32 city_id = 10;
+    optional uint32 shop_type = 13;
+}
+
+message GetShopReq {
+    optional uint32 shop_type = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 772;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetShopRsp {
+    optional Shop shop = 11;
+    optional int32 retcode = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 798;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message BuyGoodsReq {
+    optional uint32 buy_count = 14;
+    optional ShopGoods goods = 15;
+    optional uint32 shop_type = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 712;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message BuyGoodsRsp {
+    optional uint32 buy_count = 14;
+    optional ShopGoods goods = 12;
+    optional uint32 shop_type = 11;
+    optional int32 retcode = 2;
+    repeated ShopGoods goods_list = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 735;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GetShopmallDataReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 707;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetShopmallDataRsp {
+    repeated uint32 shop_type_list = 15;
+    optional int32 retcode = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 721;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ActivityShopSheetInfo {
+    optional uint32 end_time = 1;
+    optional uint32 begin_time = 12;
+    optional uint32 sheet_id = 2;
+}
+
+message GetActivityShopSheetInfoReq {
+    optional uint32 shop_type = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 703;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetActivityShopSheetInfoRsp {
+    repeated ActivityShopSheetInfo sheet_info_list = 6;
+    optional uint32 shop_type = 8;
+    optional int32 retcode = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 790;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message BuyGoodsParam {
+    optional uint32 buy_count = 12;
+    optional ShopGoods goods = 13;
+}
+
+message BatchBuyGoodsReq {
+    optional uint32 shop_type = 7;
+    repeated BuyGoodsParam buy_goods_list = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 773;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message BatchBuyGoodsRsp {
+    repeated ShopGoods goods_list = 9;
+    optional int32 retcode = 1;
+    repeated BuyGoodsParam buy_goods_list = 5;
+    optional uint32 shop_type = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 799;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+enum ShopGoodsDisableType {
+    SHOP_GOODS_DISABLE_NONE = 0;
+    SHOP_GOODS_DISABLE_TALENT_FULL = 1;
+    SHOP_GOODS_DISABLE_FURNITURE_FORMULA_UNLOCKED = 2;
+    SHOP_GOODS_DISABLE_COSTUME_UNLOCKED = 3;
+    SHOP_GOODS_DISABLE_BGM_UNLOCKED = 4;
+    SHOP_GOODS_DISABLE_GCG_CARD_EXCEED = 5;
+    SHOP_GOODS_DISABLE_GCG_CARD_FACE_UNLOCKED = 6;
+    SHOP_GOODS_DISABLE_GCG_CARD_BACK_UNLOCKED = 7;
+    SHOP_GOODS_DISABLE_GCG_FIELD_UNLOCKED = 8;
+}

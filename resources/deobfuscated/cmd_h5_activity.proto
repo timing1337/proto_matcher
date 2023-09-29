@@ -1,0 +1,76 @@
+syntax = "proto2";
+
+
+
+message H5ActivityInfo {
+    optional uint32 h5_activity_id = 3;
+    optional string url = 4;
+    optional bool is_entrance_open = 7;
+    optional uint32 h5_schedule_id = 8;
+    optional uint32 end_time = 10;
+    optional string prefab_path = 11;
+    optional uint32 content_close_time = 2;
+    optional uint32 begin_time = 13;
+}
+
+message GetAllH5ActivityInfoReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5668;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetAllH5ActivityInfoRsp {
+    repeated H5ActivityInfo h5_activity_info_list = 15;
+    optional int32 retcode = 5;
+    optional uint32 client_red_dot_timestamp = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5676;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message H5ActivityIdsNotify {
+    optional uint32 client_red_dot_timestamp = 1;
+    map<uint32, uint32> h5_activity_map = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5675;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message SetH5ActivityRedDotTimestampReq {
+    optional uint32 client_red_dot_timestamp = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5657;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message SetH5ActivityRedDotTimestampRsp {
+    optional int32 retcode = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 5652;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}

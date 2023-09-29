@@ -1,0 +1,207 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message MailChangeNotify {
+    repeated MailData mail_list = 14;
+    repeated uint32 del_mail_id_list = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1498;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ReadMailNotify {
+    repeated uint32 mail_id_list = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1412;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetMailItemReq {
+    repeated uint32 mail_id_list = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1435;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetMailItemRsp {
+    optional int32 retcode = 7;
+    repeated uint32 mail_id_list = 3;
+    repeated EquipParam item_list = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1407;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message DelMailReq {
+    repeated uint32 mail_id_list = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1421;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message DelMailRsp {
+    optional int32 retcode = 11;
+    repeated uint32 mail_id_list = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1403;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GetAuthkeyReq {
+    optional string auth_appid = 14;
+    optional uint32 sign_type = 7;
+    optional uint32 authkey_ver = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1490;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetAuthkeyRsp {
+    optional string auth_appid = 4;
+    optional uint32 sign_type = 15;
+    optional int32 retcode = 6;
+    optional uint32 authkey_ver = 9;
+    optional string game_biz = 11;
+    optional string authkey = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1473;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ClientNewMailNotify {
+    optional uint32 not_read_num = 7;
+    optional uint32 not_got_attachment_num = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1499;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GetAllMailReq {
+    optional bool is_collected = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1431;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetAllMailRsp {
+    optional int32 retcode = 8;
+    repeated MailData mail_list = 14;
+    optional bool is_collected = 1;
+    optional bool is_truncated = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1475;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ChangeMailStarNotify {
+    optional bool is_star = 14;
+    repeated uint32 mail_id_list = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1448;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetAllMailNotify {
+    optional bool is_collected = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1497;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetAllMailResultNotify {
+    optional string transaction = 9;
+    repeated MailData mail_list = 5;
+    optional uint32 page_index = 11;
+    optional uint32 total_page_count = 4;
+    optional bool is_collected = 7;
+    optional int32 retcode = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1481;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+enum AuthkeySignType {
+    AUTHKEY_SIGN_TYPE_NONE = 0;
+    AUTHKEY_SIGN_TYPE_DEFAULT = 1;
+    AUTHKEY_SIGN_TYPE_RSA = 2;
+}

@@ -1,0 +1,23 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message ShareCDInfo {
+    optional uint32 index = 2;
+    optional uint64 cd_start_time = 14;
+    optional uint32 share_cd_id = 12;
+}
+
+message AllShareCDDataNotify {
+    map<uint32, ShareCDInfo> share_cd_info_map = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 9072;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}

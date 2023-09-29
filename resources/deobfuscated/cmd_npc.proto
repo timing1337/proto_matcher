@@ -1,0 +1,113 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message NpcTalkReq {
+    optional uint32 entity_id = 8;
+    optional uint32 npc_entity_id = 9;
+    optional uint32 talk_id = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 572;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message NpcTalkRsp {
+    optional uint32 cur_talk_id = 9;
+    optional uint32 npc_entity_id = 6;
+    optional int32 retcode = 3;
+    optional uint32 entity_id = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 598;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GetSceneNpcPositionReq {
+    repeated uint32 npc_id_list = 6;
+    optional uint32 scene_id = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 535;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetSceneNpcPositionRsp {
+    optional int32 retcode = 10;
+    repeated NpcPositionInfo npc_info_list = 14;
+    optional uint32 scene_id = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 507;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message MetNpcIdListNotify {
+    repeated uint32 npc_first_met_id_list = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 521;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message MeetNpcReq {
+    optional uint32 npc_id = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 503;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message MeetNpcRsp {
+    optional int32 retcode = 14;
+    optional uint32 npc_first_met_id = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 590;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message FinishedTalkIdListNotify {
+    repeated uint32 finished_talk_id_list = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 573;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}

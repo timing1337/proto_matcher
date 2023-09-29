@@ -1,0 +1,209 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message EntityPropNotify {
+    map<uint32, PropValue> prop_map = 1;
+    optional uint32 entity_id = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1272;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message LifeStateChangeNotify {
+    optional uint32 entity_id = 4;
+    repeated ServerBuff server_buff_list = 6;
+    optional string attack_tag = 7;
+    optional uint32 move_reliable_seq = 15;
+    optional PlayerDieType die_type = 14;
+    optional uint32 life_state = 5;
+    optional uint32 source_entity_id = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1298;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message EntityFightPropNotify {
+    optional uint32 entity_id = 4;
+    map<uint32, float> fight_prop_map = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1212;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message EntityFightPropUpdateNotify {
+    map<uint32, float> fight_prop_map = 15;
+    optional uint32 entity_id = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1235;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarFightPropNotify {
+    map<uint32, float> fight_prop_map = 8;
+    optional uint64 avatar_guid = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1207;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarFightPropUpdateNotify {
+    map<uint32, float> fight_prop_map = 15;
+    optional uint64 avatar_guid = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1221;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message EntityFightPropChangeReasonNotify {
+    repeated uint32 param_list = 10;
+    optional float prop_delta = 1;
+    optional ChangHpReason change_hp_reason = 14;
+    optional PropChangeReason reason = 6;
+    optional uint32 entity_id = 5;
+    optional ChangeEnergyReason change_energy_reson = 15;
+    optional uint32 prop_type = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1203;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarLifeStateChangeNotify {
+    optional uint32 life_state = 13;
+    optional string attack_tag = 10;
+    optional PlayerDieType die_type = 2;
+    repeated ServerBuff server_buff_list = 12;
+    optional uint32 move_reliable_seq = 5;
+    optional uint32 source_entity_id = 3;
+    optional uint64 avatar_guid = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1290;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarPropChangeReasonNotify {
+    optional float old_value = 11;
+    optional PropChangeReason reason = 5;
+    optional uint32 prop_type = 1;
+    optional uint64 avatar_guid = 8;
+    optional float cur_value = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1273;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message PlayerPropChangeReasonNotify {
+    optional uint32 prop_type = 6;
+    optional float old_value = 12;
+    optional PropChangeReason reason = 1;
+    optional float cur_value = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1299;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message AvatarPropNotify {
+    map<uint32, int64> prop_map = 14;
+    optional uint64 avatar_guid = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1231;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message MarkNewNotify {
+    repeated uint32 id_list = 7;
+    optional uint32 mark_new_type = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1275;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+enum PropChangeReason {
+    PROP_CHANGE_NONE = 0;
+    PROP_CHANGE_STATUE_RECOVER = 1;
+    PROP_CHANGE_ENERGY_BALL = 2;
+    PROP_CHANGE_ABILITY = 3;
+    PROP_CHANGE_LEVELUP = 4;
+    PROP_CHANGE_ITEM = 5;
+    PROP_CHANGE_AVATAR_CARD = 6;
+    PROP_CHANGE_CITY_LEVELUP = 7;
+    PROP_CHANGE_AVATAR_UPGRADE = 8;
+    PROP_CHANGE_AVATAR_PROMOTE = 9;
+    PROP_CHANGE_PLAYER_ADD_EXP = 10;
+    PROP_CHANGE_FINISH_QUEST = 11;
+    PROP_CHANGE_GM = 12;
+    PROP_CHANGE_MANUAL_ADJUST_WORLD_LEVEL = 13;
+}
+
+enum ChangeEnergyReason {
+    CHANGE_ENERGY_NONE = 0;
+    CHANGE_ENERGY_SKILL_START = 1;
+}
+
+enum MarkNewType {
+    MARK_NEW_TYPE_NONE = 0;
+    MARK_NEW_TYPE_COMBINE = 1;
+    MARK_NEW_TYPE_FORGE = 2;
+}

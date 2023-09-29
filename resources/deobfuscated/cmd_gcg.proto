@@ -1,0 +1,1675 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+import "cmd_gcg_common.proto";
+
+message GCGAttackCostInfo {
+    optional uint32 skill_id = 8;
+    map<uint32, uint32> cost_map = 3;
+}
+
+message GCGPlayCardCostInfo {
+    map<uint32, uint32> cost_map = 14;
+    optional uint32 card_id = 1;
+}
+
+message GCGSelectOnStageCostInfo {
+    map<uint32, uint32> cost_map = 8;
+    optional uint32 card_guid = 9;
+}
+
+message GCGCostReviseInfo {
+    optional bool is_can_attack = 4;
+    repeated uint32 can_use_hand_card_id_list = 11;
+    repeated GCGPlayCardCostInfo play_card_cost_list = 5;
+    repeated GCGSelectOnStageCostInfo select_on_stage_cost_list = 10;
+    repeated GCGAttackCostInfo attack_cost_list = 2;
+}
+
+message GCGMsgTokenChange {
+    optional uint32 before = 13;
+    optional uint32 token_type = 4;
+    optional uint32 card_guid = 2;
+    optional uint32 after = 11;
+    optional GCGReason reason = 7;
+}
+
+message GCGMsgPhaseChange {
+    map<uint32, uint32> allow_controller_map = 15;
+    optional GCGPhaseType before_phase = 12;
+    optional GCGPhaseType after_phase = 5;
+}
+
+message GCGMsgAddCards {
+    optional uint32 pos = 11;
+    optional GCGZoneType zone = 2;
+    optional GCGReason reason = 15;
+    optional uint32 controller_id = 13;
+    repeated uint32 card_guid_list = 14;
+}
+
+message GCGMsgRemoveCards {
+    optional uint32 controller_id = 15;
+    optional GCGZoneType zone = 10;
+    optional GCGReason reason = 5;
+    repeated uint32 card_guid_list = 1;
+}
+
+message GCGMsgMoveCard {
+    optional uint32 controller_id = 14;
+    optional GCGZoneType to = 5;
+    optional GCGZoneType from = 12;
+    repeated uint32 card_guid_list = 8;
+    optional GCGReason reason = 6;
+    repeated uint32 fail_guid_list = 11;
+}
+
+message GCGMsgSelectOnStage {
+    optional uint32 controller_id = 6;
+    optional GCGReason reason = 10;
+    optional uint32 card_guid = 4;
+}
+
+message GCGMsgSelectOnStageByEffect {
+    optional uint32 skill_id = 12;
+    optional uint32 controller_id = 15;
+    optional uint32 card_guid = 1;
+}
+
+message GCGMsgDiceRoll {
+    repeated GCGDiceSideType dice_side_list = 10;
+    optional uint32 dice_num = 15;
+    optional uint32 controller_id = 5;
+}
+
+message GCGMsgDiceReroll {
+    optional uint32 controller_id = 2;
+    repeated uint32 select_dice_index_list = 1;
+    repeated GCGDiceSideType dice_side_list = 6;
+}
+
+message GCGMsgPass {
+    optional uint32 controller_id = 14;
+}
+
+message GCGMsgCharDie {
+    optional uint32 controller_id = 5;
+    optional uint32 card_guid = 11;
+}
+
+message GCGMsgUseSkill {
+    optional uint32 skill_id = 9;
+    optional uint32 card_guid = 6;
+}
+
+message GCGMsgUseSkillEnd {
+    optional uint32 card_guid = 11;
+    optional uint32 skill_id = 12;
+}
+
+message GCGDamageDetail {
+    optional uint32 skill_id = 10;
+    optional uint32 card_guid = 7;
+}
+
+message GCGMsgSkillResult {
+    optional uint32 skill_id = 12;
+    optional uint32 last_hp = 14;
+    repeated GCGDamageDetail detail_list = 2;
+    optional uint32 target_card_guid = 7;
+    optional uint32 effect_element = 5;
+    optional uint32 from_result_seq = 15;
+    optional uint32 damage = 6;
+    optional uint32 result_seq = 4;
+    optional uint32 src_card_guid = 8;
+}
+
+message GCGLimitsInfo {
+    optional uint32 limit_type = 7;
+    optional uint32 limit_value = 1;
+}
+
+message GCGSkillLimitsInfo {
+    optional uint32 skill_id = 5;
+    repeated GCGLimitsInfo limits_list = 15;
+}
+
+message GCGCardSkillLimitsInfo {
+    repeated GCGSkillLimitsInfo skill_limits_list = 12;
+}
+
+message GCGMsgSkillLimitsChange {
+    map<uint32, GCGCardSkillLimitsInfo> card_limits_change_map = 15;
+}
+
+message GCGMsgCostDice {
+    optional uint32 controller_id = 6;
+    repeated uint32 select_dice_index_list = 13;
+    optional GCGReason reason = 9;
+}
+
+message GCGMsgAddDice {
+    map<uint32, GCGDiceSideType> before_dice_map = 12;
+    optional int32 change_count = 1;
+    map<uint32, GCGDiceSideType> dice_map = 8;
+    optional GCGReason reason = 4;
+    optional uint32 controller_id = 10;
+}
+
+message GCGMsgNewCard {
+    optional GCGCard card = 15;
+}
+
+message GCGMsgUpdateController {
+    map<uint32, uint32> allow_controller_map = 7;
+}
+
+message GCGMsgModifyAdd {
+    optional uint32 pos = 9;
+    optional uint32 owner_card_guid = 10;
+    repeated uint32 card_guid_list = 15;
+    optional uint32 controller_id = 14;
+    optional GCGReason reason = 11;
+}
+
+message GCGMsgModifyRemove {
+    optional uint32 controller_id = 14;
+    optional GCGReason reason = 12;
+    optional uint32 owner_card_guid = 5;
+    repeated uint32 card_guid_list = 4;
+}
+
+message GCGMsgPVEIntention {
+    repeated uint32 skill_id_list = 8;
+    optional uint32 card_guid = 13;
+}
+
+message GCGMsgPVEIntentionInfo {
+    map<uint32, GCGMsgPVEIntention> intention_map = 2;
+}
+
+message GCGMsgPVEIntentionChange {
+    repeated GCGMsgPVEIntention change_intention_list = 4;
+    optional GCGIntentionChangeType change_type = 1;
+}
+
+message GCGMsgDuelDataChange {
+    optional uint32 round = 14;
+}
+
+message GCGMsgClientPerform {
+    repeated uint32 param_list = 2;
+    optional GCGClientPerformType perform_type = 5;
+}
+
+message GCGMsgGameOver {
+    optional GCGEndReason end_reason = 13;
+    optional uint32 win_controller_id = 6;
+}
+
+message GCGMsgOpTimer {
+    optional fixed64 begin_time = 9;
+    optional GCGPhaseType phase = 3;
+    optional fixed64 time_stamp = 13;
+    optional uint32 controller_id = 8;
+}
+
+message GCGMsgWaitingListChange {
+    optional uint32 cur_index = 6;
+    optional uint32 controller_id = 4;
+}
+
+message GCGMsgCardUpdate {
+    optional GCGCard card = 7;
+}
+
+message GCGMsgCostRevise {
+    optional uint32 controller_id = 5;
+    optional GCGCostReviseInfo cost_revise = 13;
+}
+
+message GCGMsgPhaseContinue {
+    
+}
+
+message GCGMsgNoDamageSkillResult {
+    optional uint32 result_seq = 8;
+    optional uint32 from_result_seq = 4;
+    optional uint32 effect_element = 9;
+    optional uint32 target_card_guid = 5;
+    repeated GCGDamageDetail detail_list = 13;
+    optional uint32 skill_id = 10;
+    optional uint32 src_card_guid = 12;
+}
+
+message GCGMsgReactionBegin {
+    optional uint32 card_guid = 13;
+    optional uint32 skill_id = 3;
+}
+
+message GCGMsgReactionEnd {
+    optional uint32 skill_id = 4;
+}
+
+message GCGMessage {
+    oneof message {
+        GCGMsgTokenChange token_change = 12;
+        GCGMsgPhaseChange phase_change = 13;
+        GCGMsgAddCards add_cards = 10;
+        GCGMsgRemoveCards remove_cards = 14;
+        GCGMsgSelectOnStage select_on_stage = 6;
+        GCGMsgDiceRoll dice_roll = 9;
+        GCGMsgDiceReroll dice_reroll = 11;
+        GCGMsgPass pass = 5;
+        GCGMsgCharDie char_die = 2;
+        GCGMsgSkillResult skill_result = 1;
+        GCGMsgCostDice cost_dice = 7;
+        GCGMsgAddDice add_dice = 3;
+        GCGMsgMoveCard move_card = 15;
+        GCGMsgUseSkill use_skill = 4;
+        GCGMsgNewCard new_card = 1848;
+        GCGMsgUpdateController update_controller = 429;
+        GCGMsgModifyAdd modify_add = 1851;
+        GCGMsgModifyRemove modify_remove = 471;
+        GCGMsgUseSkillEnd use_skill_end = 1411;
+        GCGMsgDuelDataChange duel_data_change = 1008;
+        GCGMsgClientPerform client_perform = 1035;
+        GCGMsgGameOver game_over = 714;
+        GCGMsgOpTimer op_timer = 1862;
+        GCGMsgWaitingListChange waiting_list_change = 1678;
+        GCGMsgCardUpdate card_update = 1879;
+        GCGMsgSelectOnStageByEffect select_on_stage_by_effect = 2042;
+        GCGMsgCostRevise cost_revise = 1350;
+        GCGMsgPhaseContinue phase_continue = 1474;
+        GCGMsgPVEIntentionInfo pve_intention_info = 1252;
+        GCGMsgPVEIntentionChange pve_intention_change = 893;
+        GCGMsgSkillLimitsChange skill_limits_change = 259;
+        GCGMsgNoDamageSkillResult no_damage_skill_result = 24;
+        GCGMsgReactionBegin reaction_begin = 859;
+        GCGMsgReactionEnd reaction_end = 1395;
+    }
+}
+
+message GCGMessagePack {
+    optional GCGActionType action_type = 3;
+    optional uint32 controller_id = 6;
+    repeated GCGMessage msg_list = 13;
+}
+
+message GCGOperationRedraw {
+    repeated uint32 card_list = 2;
+}
+
+message GCGOperationOnStageSelect {
+    optional uint32 card_guid = 5;
+    repeated uint32 cost_dice_index_list = 4;
+}
+
+message GCGOperationReroll {
+    repeated uint32 dice_index_list = 12;
+}
+
+message GCGOperationAttack {
+    repeated uint32 cost_dice_index_list = 8;
+    optional uint32 skill_id = 2;
+}
+
+message GCGOperationPass {
+    
+}
+
+message GCGOperationPlayCard {
+    optional uint32 card_guid = 12;
+    repeated uint32 cost_dice_index_list = 4;
+    repeated uint32 target_card_guid_list = 10;
+    optional uint32 replace_card_guid = 8;
+}
+
+message GCGOperationReboot {
+    repeated uint32 cost_card_guid_list = 7;
+    repeated uint32 dice_index_list = 6;
+}
+
+message GCGOperationSurrender {
+    
+}
+
+message GCGOperation {
+    oneof op {
+        GCGOperationRedraw op_redraw = 10;
+        GCGOperationOnStageSelect op_select_on_stage = 4;
+        GCGOperationReroll op_reroll = 9;
+        GCGOperationAttack op_attack = 11;
+        GCGOperationPass op_pass = 15;
+        GCGOperationPlayCard op_play_card = 2;
+        GCGOperationReboot op_reboot = 5;
+        GCGOperationSurrender op_surrender = 1;
+    }
+}
+
+message GCGReplayOperationData {
+    optional uint32 controller_id = 8;
+    optional GCGOperation op = 5;
+}
+
+message GCGReplayControllerData {
+    optional uint32 controller_id = 13;
+    repeated uint32 card_id_list = 5;
+}
+
+message GCGOperationReplay {
+    optional uint32 seed = 11;
+    repeated GCGReplayOperationData operation_data_list = 9;
+    repeated GCGReplayControllerData controller_data_list = 13;
+    optional uint32 game_id = 1;
+}
+
+message GCGToken {
+    optional uint32 value = 11;
+    optional uint32 key = 4;
+}
+
+message GCGCard {
+    optional bool is_show = 14;
+    optional uint32 face_type = 5;
+    optional uint32 id = 6;
+    repeated GCGToken token_list = 2;
+    repeated uint32 skill_id_list = 11;
+    repeated GCGSkillLimitsInfo skill_limits_list = 8;
+    optional uint32 guid = 15;
+    repeated uint32 tag_list = 3;
+    optional uint32 controller_id = 7;
+}
+
+message GCGZone {
+    repeated uint32 card_list = 4;
+}
+
+message GCGWaitingCharacter {
+    optional uint32 card_id = 2;
+    optional uint32 cond_count = 14;
+}
+
+message GCGPlayerField {
+    map<uint32, GCGZone> modify_zone_map = 2;
+    optional uint32 cur_waiting_index = 383;
+    optional GCGZone summon_zone = 1;
+    optional uint32 field_show_id = 8;
+    optional uint32 card_back_show_id = 12;
+    optional uint32 dice_count = 3;
+    optional uint32 controller_id = 10;
+    optional GCGZone on_stage_zone = 14;
+    optional bool is_passed = 7;
+    optional GCGZone character_zone = 5;
+    optional uint32 on_stage_character_guid = 6;
+    optional GCGZone assist_zone = 15;
+    optional uint32 deck_card_num = 13;
+    repeated GCGDiceSideType dice_side_list = 11;
+    optional GCGZone hand_zone = 9;
+    repeated GCGPVEIntention intention_list = 1192;
+    repeated GCGWaitingCharacter waiting_list = 4;
+}
+
+message GCGPhase {
+    optional GCGPhaseType phase_type = 5;
+    map<uint32, uint32> allow_controller_map = 6;
+}
+
+message GCGControllerShowInfo {
+    optional ProfilePicture profile_picture = 11;
+    optional string nick_name = 14;
+    optional uint32 controller_id = 9;
+}
+
+message GCGPVEIntention {
+    optional uint32 card_guid = 9;
+    repeated uint32 skill_id_list = 7;
+}
+
+message GCGDuelChallenge {
+    optional uint32 total_progress = 7;
+    optional uint32 challenge_id = 10;
+    optional uint32 cur_progress = 12;
+}
+
+message GCGDuel {
+    optional GCGCostReviseInfo cost_revise = 10;
+    optional GCGGameBusinessType business_type = 14;
+    repeated GCGCard history_card_list = 121;
+    optional uint32 operation_seq = 1210;
+    optional uint32 game_id = 11;
+    optional uint32 game_type = 2;
+    repeated GCGCard card_list = 9;
+    optional uint32 server_seq = 3;
+    repeated GCGMessagePack history_msg_pack_list = 796;
+    optional uint32 round = 15;
+    repeated GCGPlayerField field_list = 7;
+    optional uint32 controller_id = 13;
+    optional GCGPhase phase = 8;
+    repeated uint32 card_id_list = 4;
+    repeated GCGPVEIntention intetion_list = 1;
+    repeated uint32 forbid_finish_challenge_list = 647;
+    repeated GCGDuelChallenge challenge_list = 5;
+    optional uint32 cur_controller_id = 12;
+    repeated GCGControllerShowInfo show_info_list = 6;
+}
+
+message GCGOperationReq {
+    optional uint32 op_seq = 2;
+    optional uint32 redirect_uid = 7;
+    optional GCGOperation op = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7107;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGOperationRsp {
+    optional int32 retcode = 8;
+    optional uint32 op_seq = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7600;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGMessagePackNotify {
+    repeated GCGMessagePack msg_pack_list = 11;
+    optional uint32 server_seq = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7516;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGAskDuelReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7237;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGAskDuelRsp {
+    optional int32 retcode = 3;
+    optional GCGDuel duel = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7869;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGPlayerBriefData {
+    map<uint32, uint32> card_face_map = 8;
+    optional string nick_name = 9;
+    optional ProfilePicture profile_picture = 12;
+    repeated uint32 card_id_list = 3;
+    optional uint32 controller_id = 5;
+    optional uint32 uid = 10;
+}
+
+message GCGGameBriefData {
+    optional uint32 game_id = 14;
+    optional uint32 game_uid = 9;
+    optional GCGGameBusinessType business_type = 13;
+    optional uint32 verify_code = 5;
+    repeated GCGPlayerBriefData player_brief_list = 12;
+}
+
+message GCGGameBriefDataNotify {
+    optional bool is_new_game = 11;
+    optional GCGGameBriefData gcg_brief_data = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7539;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGInitFinishReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7684;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGInitFinishRsp {
+    optional int32 retcode = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7433;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGHeartBeatNotify {
+    optional uint32 server_seq = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7224;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGSkillPreviewHpInfo {
+    optional GCGSkillHpChangeType change_type = 4;
+    optional uint32 hp_change_value = 13;
+}
+
+message GCGSkillPreviewReactionInfo {
+    optional uint32 source_element = 13;
+    optional uint32 target_element = 1;
+}
+
+message GCGSkillPreviewElementReactionInfo {
+    repeated uint32 fresh_list = 8;
+    repeated uint32 source_list = 2;
+    repeated GCGSkillPreviewReactionInfo reaction_list = 14;
+}
+
+message GCGSkillPreviewCardInfo {
+    optional uint32 controller_id = 3;
+    optional uint32 owner_card_guid = 11;
+    optional GCGZoneType zone_type = 14;
+    optional uint32 card_id = 13;
+    optional uint32 card_guid = 6;
+}
+
+message GCGSkillPreviewOnstageChangeInfo {
+    optional uint32 target_onstage_card_guid = 6;
+    optional uint32 source_onstage_card_guid = 15;
+}
+
+message GCGSkillPreviewTokenInfo {
+    optional uint32 token_type = 3;
+    optional uint32 after_value = 12;
+    optional uint32 before_value = 15;
+}
+
+message GCGSkillPreviewTokenChangeInfo {
+    repeated GCGSkillPreviewTokenInfo token_change_list = 14;
+}
+
+message GCGSkillPreviewExtraInfo {
+    repeated GCGSkillPreviewCardInfo fail_added_when_full_list = 14;
+    repeated GCGSkillPreviewCardInfo refresh_card_when_exist_list = 6;
+}
+
+message GCGSkillPreviewInfo {
+    map<uint32, GCGSkillPreviewTokenChangeInfo> card_token_change_map = 3;
+    map<uint32, GCGSkillPreviewElementReactionInfo> reaction_info_map = 5;
+    map<uint32, GCGSkillPreviewHpInfo> hp_info_map = 8;
+    repeated GCGSkillPreviewCardInfo add_card_list = 11;
+    optional GCGSkillPreviewExtraInfo extra_info = 10;
+    optional uint32 skill_id = 6;
+    repeated GCGSkillPreviewOnstageChangeInfo change_onstage_character_list = 9;
+    repeated GCGSkillPreviewCardInfo rm_card_list = 12;
+}
+
+message GCGChangeOnstageInfo {
+    optional uint32 card_guid = 6;
+    optional bool is_quick = 7;
+    optional GCGSkillPreviewInfo change_onstage_preview_info = 12;
+}
+
+message GCGSkillPreviewPlayCardInfo {
+    optional uint32 target_card_guid = 9;
+    optional uint32 hand_card_guid = 15;
+    optional GCGSkillPreviewInfo play_card_info = 6;
+}
+
+message GCGSkillPreviewNotify {
+    optional uint32 controller_id = 15;
+    repeated GCGSkillPreviewPlayCardInfo play_card_list = 11;
+    repeated GCGSkillPreviewInfo skill_preview_list = 9;
+    repeated GCGChangeOnstageInfo change_onstage_preview_list = 1;
+    optional uint32 onstage_card_guid = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7503;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGSkillPreviewAskReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7509;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGSkillPreviewAskRsp {
+    optional int32 retcode = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7409;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGChallengeUpdateNotify {
+    optional uint32 server_seq = 12;
+    optional GCGDuelChallenge challenge = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7268;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGBackToDuelReq {
+    optional bool is_back = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7729;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGBackToDuelRsp {
+    optional int32 retcode = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7416;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDebugReplayNotify {
+    optional string json_str = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7932;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGGameMaxNotify {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7666;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGGameCreateFailReasonNotify {
+    optional GCGGameCreateReason reason = 15;
+    enum GCGGameCreateReason {
+        REASON_NONE = 0;
+        REASON_GAME_MAX = 1;
+        REASON_CLIENT_VERSION_NOT_LASTEST = 2;
+        REASON_RESOURCE_NOT_COMPLETE = 3;
+        REASON_TIMEOUT = 4;
+    }
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7239;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSDeckData {
+    repeated uint32 card_list = 1;
+    optional uint32 card_back_id = 15;
+    repeated uint32 character_card_list = 10;
+    optional string name = 5;
+    optional uint32 id = 3;
+    optional fixed32 create_time = 13;
+    optional bool is_valid = 4;
+    optional uint32 field_id = 7;
+}
+
+message GCGDSCardData {
+    optional uint32 card_id = 14;
+    optional uint32 face_type = 6;
+    optional uint32 num = 12;
+    repeated uint32 unlock_face_type_list = 9;
+    repeated uint32 proficiency_reward_taken_idx_list = 7;
+    optional uint32 proficiency = 8;
+}
+
+message GCGDSDataNotify {
+    repeated GCGDSDeckData deck_list = 4;
+    repeated uint32 unlock_card_back_id_list = 5;
+    repeated uint32 unlock_field_id_list = 6;
+    optional uint32 cur_deck_id = 10;
+    repeated GCGDSCardData card_list = 3;
+    repeated uint32 unlock_deck_id_list = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7122;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSCardBackUnlockNotify {
+    optional uint32 card_back_id = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7265;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSFieldUnlockNotify {
+    optional uint32 field_id = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7333;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSCardFaceUnlockNotify {
+    optional uint32 card_id = 13;
+    optional uint32 face_type = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7049;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSCardNumChangeNotify {
+    optional uint32 card_id = 4;
+    optional uint32 num = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7358;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSChangeCardFaceReq {
+    optional uint32 face_type = 6;
+    optional uint32 card_id = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7169;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGDSChangeCardFaceRsp {
+    optional uint32 face_type = 8;
+    optional uint32 card_id = 4;
+    optional int32 retcode = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7331;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSChangeCardBackReq {
+    optional uint32 deck_id = 10;
+    optional uint32 card_back_id = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7292;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGDSChangeCardBackRsp {
+    optional int32 retcode = 15;
+    optional uint32 card_back_id = 6;
+    optional uint32 deck_id = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7044;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSChangeFieldReq {
+    optional uint32 field_id = 6;
+    optional uint32 deck_id = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7541;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGDSChangeFieldRsp {
+    optional int32 retcode = 1;
+    optional uint32 field_id = 3;
+    optional uint32 deck_id = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7444;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSChangeDeckNameReq {
+    optional uint32 deck_id = 13;
+    optional string name = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7432;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGDSChangeDeckNameRsp {
+    optional uint32 deck_id = 13;
+    optional int32 retcode = 14;
+    optional string name = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7916;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSDeckSaveReq {
+    optional uint32 deck_id = 1;
+    repeated uint32 card_list = 4;
+    repeated uint32 character_card_list = 9;
+    optional string name = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7104;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGDSDeckSaveRsp {
+    optional fixed32 create_time = 14;
+    optional uint32 deck_id = 11;
+    optional int32 retcode = 8;
+    optional bool is_valid = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7269;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSChangeCurDeckReq {
+    optional uint32 deck_id = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7131;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGDSChangeCurDeckRsp {
+    optional int32 retcode = 8;
+    optional uint32 deck_id = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7301;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSCurDeckChangeNotify {
+    optional uint32 deck_id = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7796;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSDeleteDeckReq {
+    optional uint32 deck_id = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7988;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGDSDeleteDeckRsp {
+    optional int32 retcode = 14;
+    optional uint32 deck_id = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7524;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSDeckUnlockNotify {
+    optional uint32 deck_id = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7732;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSCardProficiencyNotify {
+    optional uint32 proficiency = 2;
+    optional uint32 card_id = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7680;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSDeckUpdateNotify {
+    optional uint32 deck_id = 6;
+    optional bool is_valid = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7305;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSCardFaceUpdateNotify {
+    optional uint32 card_id = 14;
+    optional uint32 face_type = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7851;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSTakeCardProficiencyRewardReq {
+    optional uint32 reward_index = 7;
+    optional uint32 card_id = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7581;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGDSTakeCardProficiencyRewardRsp {
+    optional int32 retcode = 8;
+    optional uint32 reward_index = 10;
+    optional uint32 card_id = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7889;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGDSBanCardNotify {
+    repeated uint32 card_list = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7839;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGTCTavernInfoNotify {
+    optional bool is_last_duel_win = 14;
+    optional uint32 level_id = 11;
+    optional bool is_owner_in_duel = 5;
+    optional uint32 point_id = 3;
+    optional uint32 avatar_id = 12;
+    optional uint32 character_id = 7;
+    optional uint32 element_type = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7011;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGTCInviteReq {
+    optional uint32 level_id = 3;
+    optional uint32 character_id = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7922;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGTCInviteRsp {
+    optional uint32 character_id = 12;
+    optional int32 retcode = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7328;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGTCTavernChallengeData {
+    repeated uint32 unlock_level_id_list = 1;
+    optional uint32 character_id = 8;
+}
+
+message GCGTCTavernChallengeDataNotify {
+    repeated GCGTCTavernChallengeData tavern_challenge_list = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7294;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGTCTavernChallengeUpdateNotify {
+    optional GCGTCTavernChallengeData tavern_challenge = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7184;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGGrowthLevelNotify {
+    optional uint32 exp = 7;
+    optional uint32 level = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7736;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGGrowthLevelRewardNotify {
+    repeated uint32 level_reward_taken_list = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7477;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGGrowthLevelTakeRewardReq {
+    optional uint32 level = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7051;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGGrowthLevelTakeRewardRsp {
+    optional uint32 level = 1;
+    optional int32 retcode = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7670;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGInviteGuestBattleReq {
+    optional uint32 uid = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7783;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGInviteGuestBattleRsp {
+    optional int32 retcode = 3;
+    optional uint32 confirm_end_time = 2;
+    optional uint32 punish_end_time = 9;
+    optional uint32 uid = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7251;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGInviteBattleNotify {
+    optional uint32 confirm_end_time = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7692;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGApplyInviteBattleReq {
+    optional bool is_agree = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7730;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGApplyInviteBattleRsp {
+    optional uint32 punish_end_time = 7;
+    optional int32 retcode = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7304;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGApplyInviteBattleNotify {
+    optional bool is_agree = 14;
+    optional int32 retcode = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7820;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGWorldPlayerGCGStateReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7206;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGPlayerGCGState {
+    optional bool is_reasouce_complete = 7;
+    optional bool is_gcg_state_open = 5;
+    optional uint32 uid = 2;
+}
+
+message GCGWorldPlayerGCGStateRsp {
+    repeated GCGPlayerGCGState player_state = 12;
+    optional int32 retcode = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7136;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGSettleNotify {
+    optional bool is_win = 13;
+    optional uint32 game_id = 7;
+    optional GCGEndReason reason = 3;
+    optional GCGGameBusinessType business_type = 2;
+    repeated uint32 finished_challenge_id_list = 6;
+    optional uint32 win_controller_id = 15;
+    repeated uint32 forbid_finish_challenge_list = 12;
+    repeated ItemParam reward_item_list = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7769;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGResourceStateNotify {
+    optional bool is_complete = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7876;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGClientSettleReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7506;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGClientSettleRsp {
+    optional uint32 close_time = 4;
+    optional int32 retcode = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7105;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGSettleOptionReq {
+    optional GCGSettleOption option = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7124;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGSettleOptionRsp {
+    optional GCGSettleOption option = 13;
+    optional int32 retcode = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7735;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGBasicDataNotify {
+    optional uint32 level = 9;
+    optional uint32 exp = 4;
+    repeated uint32 level_reward_taken_list = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7319;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGTavernNpcInfo {
+    optional uint32 id = 6;
+    optional uint32 level_id = 10;
+    optional uint32 scene_point_id = 3;
+}
+
+message GCGTavernNpcInfoNotify {
+    repeated GCGTavernNpcInfo week_npc_list = 1;
+    optional GCGTavernNpcInfo character_npc = 5;
+    repeated GCGTavernNpcInfo const_npc_list = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7290;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGStartChallengeReq {
+    optional GCGLevelType level_type = 5;
+    optional uint32 config_id = 13;
+    optional uint32 level_id = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7595;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGStartChallengeRsp {
+    optional GCGLevelType level_type = 12;
+    optional int32 retcode = 15;
+    optional uint32 config_id = 6;
+    optional uint32 level_id = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7763;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGWeekChallengeInfo {
+    optional uint32 npc_id = 4;
+    optional bool is_finished = 7;
+    optional uint32 unlock_time = 1;
+}
+
+message GCGWeekChallengeInfoNotify {
+    repeated GCGWeekChallengeInfo challenge_info_list = 15;
+    optional uint32 next_refresh_time = 7;
+    optional bool is_notify_npc_change = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7615;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGStartChallengeByCheckRewardReq {
+    optional uint32 level_id = 9;
+    optional uint32 config_id = 13;
+    optional GCGLevelType level_type = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7778;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GCGStartChallengeByCheckRewardRsp {
+    optional GCGLevelType level_type = 11;
+    optional uint32 level_id = 2;
+    optional int32 retcode = 4;
+    repeated uint32 exceeded_item_list = 1;
+    optional uint32 config_id = 10;
+    repeated uint32 exceeded_item_type_list = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7619;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGLevelData {
+    repeated uint32 finished_challenge_id_list = 10;
+    optional uint32 level_id = 9;
+}
+
+message GCGBossChallengeData {
+    optional uint32 id = 9;
+    repeated uint32 unlock_level_id_list = 14;
+}
+
+message GCGLevelChallengeNotify {
+    repeated GCGBossChallengeData unlock_boss_challenge_list = 3;
+    repeated uint32 unlock_world_challenge_list = 8;
+    repeated GCGLevelData level_list = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7055;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGLevelChallengeFinishNotify {
+    repeated uint32 finished_challenge_id_list = 10;
+    optional uint32 level_id = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7629;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGWorldChallengeUnlockNotify {
+    repeated uint32 unlock_id_list = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7204;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGBossChallengeUpdateNotify {
+    optional GCGBossChallengeData boss_challenge = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7073;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GCGLevelChallengeDeleteNotify {
+    repeated uint32 level_id_list = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 7648;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+enum GCGSkillHpChangeType {
+    GCG_SKILL_HP_CHANGE_NONE = 0;
+    GCG_SKILL_HP_CHANGE_DAMAGE = 1;
+    GCG_SKILL_HP_CHANGE_HEAL = 2;
+}
+
+enum GCGSettleOption {
+    GCG_SETTLE_OPT_NONE = 0;
+    GCG_SETTLE_OPT_EXIT = 1;
+    GCG_SETTLE_OPT_CONTINUE = 2;
+    GCG_SETTLE_OPT_RESTART = 3;
+}

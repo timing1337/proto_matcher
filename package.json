@@ -1,0 +1,20 @@
+{
+  "name": "proto_comparer",
+  "version": "1.0.0",
+  "description": "A tool for generating partially generated nametranslation for protos",
+  "main": "index.js",
+  "scripts": {
+    "main": "npx ts-node-dev --respawn --transpile-only true src/index.ts"
+  },
+  "author": "timing1337",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.11.19",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "iced-x86": "^1.18.0",
+    "protobufjs": "^7.2.1"
+  }
+}

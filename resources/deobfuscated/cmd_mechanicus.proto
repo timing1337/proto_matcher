@@ -1,0 +1,201 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message MechanicusInfo {
+    repeated Uint32Pair gear_level_pair_list = 14;
+    repeated uint32 open_sequence_id_list = 7;
+    optional uint32 coin = 8;
+    optional uint32 punish_over_time = 12;
+    optional uint32 mechanicus_id = 10;
+    repeated uint32 finish_difficult_level_list = 13;
+    optional bool is_finish_teach_dungeon = 4;
+}
+
+message GetMechanicusInfoReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 3972;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GetMechanicusInfoRsp {
+    optional int32 retcode = 14;
+    optional MechanicusInfo mechanicus_info = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 3998;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message MechanicusSequenceOpenNotify {
+    optional uint32 mechanicus_id = 8;
+    optional uint32 sequence_id = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 3912;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message MechanicusCoinNotify {
+    optional uint32 mechanicus_id = 7;
+    optional uint32 coin = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 3935;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message MechanicusOpenNotify {
+    optional uint32 mechanicus_id = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 3907;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message MechanicusCloseNotify {
+    optional uint32 mechanicus_id = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 3921;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message MechanicusUnlockGearReq {
+    optional uint32 mechanicus_id = 7;
+    optional uint32 gear_id = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 3903;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message MechanicusUnlockGearRsp {
+    optional int32 retcode = 3;
+    optional uint32 mechanicus_id = 8;
+    optional uint32 gear_id = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 3990;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message MechanicusLevelupGearReq {
+    optional uint32 gear_id = 14;
+    optional uint32 mechanicus_id = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 3973;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message MechanicusLevelupGearRsp {
+    optional uint32 gear_id = 7;
+    optional uint32 mechanicus_id = 2;
+    optional uint32 after_gear_level = 12;
+    optional int32 retcode = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 3999;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message EnterMechanicusDungeonReq {
+    optional uint32 difficult_level = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 3931;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message EnterMechanicusDungeonRsp {
+    optional uint32 wrong_uid = 12;
+    optional uint32 difficult_level = 13;
+    optional int32 retcode = 6;
+    optional uint32 dungeon_id = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 3975;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message MechanicusCandidateTeamCreateReq {
+    optional uint32 difficult_level = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 3981;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message MechanicusCandidateTeamCreateRsp {
+    optional uint32 dungeon_id = 1;
+    optional int32 retcode = 7;
+    optional uint32 difficult_level = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 3905;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}

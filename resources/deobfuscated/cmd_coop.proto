@@ -1,0 +1,414 @@
+syntax = "proto2";
+
+
+
+message MainCoop {
+    map<uint32, uint32> seen_ending_map = 13;
+    map<uint32, int32> normal_var_map = 4;
+    optional uint32 self_confidence = 5;
+    repeated uint32 save_point_id_list = 1;
+    
+    optional Status status = 6;
+    enum Status {
+        INVALID = 0;
+        RUNNING = 1;
+        FINISHED = 2;
+    }
+    
+    map<uint32, int32> temp_var_map = 11;
+    optional uint32 id = 9;
+}
+
+message AllCoopInfoNotify {
+    repeated MainCoop main_coop_list = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1976;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message MainCoopUpdateNotify {
+    repeated MainCoop main_coop_list = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1968;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message SaveMainCoopReq {
+    map<uint32, int32> normal_var_map = 15;
+    optional uint32 self_confidence = 2;
+    optional uint32 save_point_id = 1;
+    map<uint32, int32> temp_var_map = 8;
+    optional uint32 id = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1975;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message SaveMainCoopRsp {
+    optional int32 retcode = 2;
+    repeated uint32 save_point_id_list = 15;
+    optional uint32 id = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1957;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message FinishMainCoopReq {
+    optional uint32 id = 10;
+    optional uint32 ending_save_point_id = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1952;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message FinishMainCoopRsp {
+    optional uint32 id = 2;
+    optional uint32 ending_save_point_id = 6;
+    optional int32 retcode = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1981;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CoopPoint {
+    optional uint32 self_confidence = 15;
+    
+    optional State state = 10;
+    enum State {
+        STATE_UNSTARTED = 0;
+        STATE_STARTED = 1;
+        STATE_FINISHED = 2;
+    }
+    
+    optional uint32 id = 14;
+}
+
+message CoopReward {
+    optional uint32 id = 5;
+    
+    optional State state = 6;
+    enum State {
+        STATE_UNLOCK = 0;
+        STATE_LOCK = 1;
+        STATE_TAKEN = 2;
+    }
+}
+
+message CoopCg {
+    optional bool is_unlock = 14;
+    optional uint32 id = 8;
+}
+
+message CoopChapter {
+    repeated CoopCg coop_cg_list = 1;
+    optional uint32 id = 2;
+    repeated CoopPoint coop_point_list = 11;
+    repeated uint32 finish_dialog_list = 10;
+    optional uint32 finished_end_count = 14;
+    optional uint32 total_end_count = 7;
+    repeated CoopReward coop_reward_list = 5;
+    repeated uint32 lock_reason_list = 12;
+    
+    optional State state = 4;
+    enum State {
+        STATE_CLOSE = 0;
+        STATE_COND_NOT_MEET = 1;
+        STATE_COND_MEET = 2;
+        STATE_ACCEPT = 3;
+    }
+    
+    map<uint32, uint32> seen_ending_map = 9;
+}
+
+message CoopDataNotify {
+    repeated CoopChapter chapter_list = 15;
+    repeated uint32 viewed_chapter_list = 7;
+    optional bool is_have_progress = 10;
+    optional uint32 cur_coop_point = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1979;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CoopChapterUpdateNotify {
+    repeated CoopChapter chapter_list = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1972;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CoopCgUpdateNotify {
+    repeated uint32 cg_list = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1994;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CoopRewardUpdateNotify {
+    repeated CoopReward reward_list = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1999;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message UnlockCoopChapterReq {
+    optional uint32 chapter_id = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1970;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message UnlockCoopChapterRsp {
+    optional uint32 chapter_id = 4;
+    optional int32 retcode = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1995;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CoopPointUpdateNotify {
+    optional CoopPoint coop_point = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1991;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message StartCoopPointReq {
+    optional uint32 coop_point = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1992;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message StartCoopPointRsp {
+    optional bool is_start = 9;
+    optional MainCoop start_main_coop = 15;
+    optional uint32 coop_point = 13;
+    optional int32 retcode = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1964;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CancelCoopTaskReq {
+    optional uint32 chapter_id = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1997;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message CancelCoopTaskRsp {
+    optional uint32 chapter_id = 1;
+    optional int32 retcode = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1987;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message TakeCoopRewardReq {
+    optional uint32 reward_config_id = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1973;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message TakeCoopRewardRsp {
+    optional int32 retcode = 9;
+    optional uint32 reward_config_id = 1;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1985;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CoopProgressUpdateNotify {
+    optional uint32 cur_coop_point = 11;
+    optional bool is_have_progress = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1998;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message SaveCoopDialogReq {
+    optional uint32 main_coop_id = 11;
+    optional uint32 dialog_id = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 2000;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message SaveCoopDialogRsp {
+    optional uint32 dialog_id = 8;
+    optional uint32 main_coop_id = 10;
+    optional int32 retcode = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1962;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CoopCgShowNotify {
+    repeated uint32 cg_list = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1983;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message SetCoopChapterViewedReq {
+    optional uint32 chapter_id = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1965;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message SetCoopChapterViewedRsp {
+    optional uint32 chapter_id = 11;
+    optional int32 retcode = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1963;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message MainCoopFailNotify {
+    optional string textmap_id = 7;
+    optional uint32 chapter_id = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1951;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}

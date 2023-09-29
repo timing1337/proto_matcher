@@ -1,0 +1,620 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message GadgetInteractReq {
+    optional uint32 gadget_id = 8;
+    optional bool is_use_condense_resin = 15;
+    optional InterOpType op_type = 5;
+    optional ResinCostType resin_cost_type = 1;
+    optional uint32 ui_interact_id = 2;
+    optional uint32 gadget_entity_id = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 872;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GadgetInteractRsp {
+    optional uint32 gadget_entity_id = 10;
+    optional InteractType interact_type = 2;
+    optional InterOpType op_type = 3;
+    optional int32 retcode = 7;
+    optional uint32 gadget_id = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 898;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GadgetStateNotify {
+    optional uint32 gadget_entity_id = 5;
+    optional uint32 gadget_state = 3;
+    optional bool is_enable_interact = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 812;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message WorktopOptionNotify {
+    optional uint32 gadget_entity_id = 11;
+    repeated uint32 option_list = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 835;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message SelectWorktopOptionReq {
+    optional uint32 gadget_entity_id = 12;
+    optional uint32 option_id = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 807;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message SelectWorktopOptionRsp {
+    optional uint32 gadget_entity_id = 13;
+    optional uint32 option_id = 7;
+    optional int32 retcode = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 821;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message BossChestActivateNotify {
+    repeated uint32 qualify_uid_list = 1;
+    optional uint32 entity_id = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 803;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message BlossomChestInfoNotify {
+    optional uint32 entity_id = 9;
+    optional BlossomChestInfo blossom_chest_info = 3;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 890;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GadgetPlayStartNotify {
+    optional uint32 start_time = 14;
+    optional uint32 entity_id = 15;
+    optional uint32 play_type = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 873;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GadgetPlayUidInfo {
+    optional ProfilePicture profile_picture = 2;
+    optional uint32 battle_watcher_id = 6;
+    optional uint32 uid = 7;
+    optional uint32 icon = 14;
+    optional uint32 score = 4;
+    optional string nickname = 3;
+    optional string online_id = 8;
+}
+
+message GadgetPlayStopNotify {
+    optional bool is_win = 14;
+    optional uint32 entity_id = 7;
+    optional uint32 play_type = 4;
+    repeated GadgetPlayUidInfo uid_info_list = 8;
+    optional uint32 score = 5;
+    optional uint32 cost_time = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 899;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GadgetPlayDataNotify {
+    optional uint32 play_type = 12;
+    optional uint32 progress = 9;
+    optional uint32 entity_id = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 831;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GadgetPlayUidOpNotify {
+    optional uint32 entity_id = 11;
+    repeated uint32 uid_list = 2;
+    optional uint32 play_type = 6;
+    optional string param_str = 1;
+    optional uint32 op = 7;
+    repeated uint32 param_list = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 875;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GadgetGeneralRewardInfoNotify {
+    optional uint32 entity_id = 13;
+    optional GadgetGeneralRewardInfo general_reward_info = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 848;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GadgetAutoPickDropInfoNotify {
+    repeated Item item_list = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 897;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message UpdateAbilityCreatedMovingPlatformNotify {
+    optional uint32 entity_id = 4;
+    
+    optional OpType op_type = 3;
+    enum OpType {
+        OP_NONE = 0;
+        OP_ACTIVATE = 1;
+        OP_DEACTIVATE = 2;
+    }
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 881;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message FoundationReq {
+    optional uint32 gadget_entity_id = 14;
+    optional uint32 point_config_id = 12;
+    optional uint32 building_id = 13;
+    optional FoundationOpType op_type = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 805;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message FoundationRsp {
+    optional FoundationOpType op_type = 13;
+    optional uint32 gadget_entity_id = 10;
+    optional uint32 building_id = 11;
+    optional uint32 point_config_id = 12;
+    optional int32 retcode = 7;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 882;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message FoundationNotify {
+    optional FoundationInfo info = 7;
+    optional uint32 gadget_entity_id = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 847;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GadgetTalkChangeNotify {
+    optional uint32 gadget_entity_id = 5;
+    optional uint32 cur_gadget_talk_state = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 839;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GadgetChainLevelUpdateNotify {
+    map<uint32, uint32> gadget_chain_level_map = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 853;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GadgetChainLevelChangeNotify {
+    map<uint32, uint32> gadget_chain_level_map = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 822;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message VehicleInteractReq {
+    optional VehicleInteractType interact_type = 8;
+    optional uint32 pos = 12;
+    optional uint32 entity_id = 15;
+
+    optional bool VehicleInteractReq_Unknown_3650_1 = 1001;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 865;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message VehicleInteractRsp {
+    optional VehicleInteractType interact_type = 15;
+    optional VehicleMember member = 3;
+    optional uint32 entity_id = 2;
+    optional int32 retcode = 1;
+    
+    optional Vector unkn3650_1 = 1000;
+    optional Vector unkn3650_2 = 1001;
+    optional uint32 unkn3650_3 = 1002;
+    optional uint32 unkn3650_4 = 1003;
+
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 804;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message CreateVehicleReq {
+    optional Vector pos = 11;
+    optional uint32 vehicle_id = 2;
+    optional uint32 scene_point_id = 7;
+    optional Vector rot = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 893;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message CreateVehicleRsp {
+    optional int32 retcode = 10;
+    optional uint32 vehicle_id = 9;
+    optional uint32 entity_id = 11;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 827;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message RequestLiveInfoReq {
+    optional uint32 live_id = 6;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 894;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message RequestLiveInfoRsp {
+    optional string spare_live_url = 14;
+    optional int32 retcode = 9;
+    optional string live_url = 12;
+    optional uint32 live_id = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 888;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message LiveStartNotify {
+    optional uint32 live_id = 2;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 826;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message ProjectorOptionReq {
+    optional uint32 op_type = 7;
+    optional uint32 entity_id = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 863;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+    
+    enum ProjectorOpType {
+        PROJECTOR_OP_NONE = 0;
+        PROJECTOR_OP_CREATE = 1;
+        PROJECTOR_OP_DESTROY = 2;
+    }
+}
+
+message ProjectorOptionRsp {
+    optional uint32 entity_id = 10;
+    optional int32 retcode = 12;
+    optional uint32 op_type = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 895;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message LiveEndNotify {
+    optional uint32 live_id = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 806;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message VehicleStaminaNotify {
+    optional uint32 entity_id = 6;
+    optional float cur_stamina = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 834;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GadgetCustomTreeInfoNotify {
+    optional CustomGadgetTreeInfo custom_gadget_tree_info = 5;
+    optional uint32 gadget_entity_id = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 850;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GadgetChangeLevelTagReq {
+    optional uint32 level_tag_id = 14;
+    optional CustomGadgetTreeInfo combination_info = 11;
+    optional uint32 gadget_entity_id = 10;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 843;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GadgetChangeLevelTagRsp {
+    optional int32 retcode = 12;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 874;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message NightCrowGadgetObservationMatchReq {
+    optional uint32 target_gadget_state = 3;
+    optional uint32 gadget_entity_id = 8;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 876;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message NightCrowGadgetObservationMatchRsp {
+    optional int32 retcode = 15;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 846;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message DeshretObeliskChestInfo {
+    optional uint32 scene_id = 5;
+    optional Vector pos = 9;
+    optional uint32 group_id = 7;
+    optional uint32 config_id = 3;
+}
+
+message DeshretObeliskChestInfoNotify {
+    repeated DeshretObeliskChestInfo chest_info_list = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 841;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+enum InteractType {
+    INTERACT_NONE = 0;
+    INTERACT_PICK_ITEM = 1;
+    INTERACT_GATHER = 2;
+    INTERACT_OPEN_CHEST = 3;
+    INTERACT_OPEN_STATUE = 4;
+    INTERACT_CONSUM = 5;
+    INTERACT_MP_PLAY_REWARD = 6;
+    INTERACT_VIEW = 7;
+    INTERACT_GENERAL_REWARD = 8;
+    INTERACT_MIRACLE_RING = 9;
+    INTERACT_FOUNDATION = 10;
+    INTERACT_ECHO_SHELL = 11;
+    INTERACT_HOME_GATHER = 12;
+    INTERACT_ENV_ANIMAL = 13;
+    INTERACT_QUEST_GADGET = 14;
+    INTERACT_UI_INTERACT = 15;
+    INTERACT_DESHRET_OBELISK = 16;
+}
+
+enum InterOpType {
+    INTER_OP_FINISH = 0;
+    INTER_OP_START = 1;
+}
+
+enum ResinCostType {
+    RESIN_COST_TYPE_NONE = 0;
+    RESIN_COST_TYPE_NORMAL = 1;
+    RESIN_COST_TYPE_CONDENSE = 2;
+    RESIN_COST_TYPE_REUNION_PRIVILEGE = 3;
+    RESIN_COST_TYPE_OP_ACTIVITY = 4;
+    RESIN_COST_TYPE_MATERIAL = 5;
+}
+
+enum FoundationOpType {
+    FOUNDATION_OP_NONE = 0;
+    FOUNDATION_OP_BUILD = 1;
+    FOUNDATION_OP_DEMOLITION = 2;
+    FOUNDATION_OP_REBUILD = 3;
+    FOUNDATION_OP_ROTATE = 4;
+    FOUNDATION_OP_LOCK = 5;
+    FOUNDATION_OP_UNLOCK = 6;
+}
+
+enum VehicleInteractType {
+    VEHICLE_INTERACT_NONE = 0;
+    VEHICLE_INTERACT_IN = 1;
+    VEHICLE_INTERACT_OUT = 2;
+}

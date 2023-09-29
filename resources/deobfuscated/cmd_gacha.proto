@@ -1,0 +1,185 @@
+syntax = "proto2";
+
+
+
+import "define.proto";
+
+message GetGachaInfoReq {
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1572;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GachaUpInfo {
+    optional uint32 item_parent_type = 7;
+    repeated uint32 item_id_list = 15;
+}
+
+message GachaInfo {
+    optional uint32 ten_cost_item_id = 2;
+    optional uint32 end_time = 14;
+    repeated uint32 display_up4_item_list = 1875;
+    optional uint32 cur_schedule_daily_gacha_times = 469;
+    repeated GachaUpInfo gacha_up_info_list = 1233;
+    optional string gacha_prob_url = 8;
+    optional string gacha_prefab_path = 15;
+    optional uint32 wish_item_id = 1637;
+    optional uint32 begin_time = 1;
+    optional uint32 wish_max_progress = 1222;
+    optional uint32 schedule_id = 10;
+    optional string gacha_prob_url_oversea = 1481;
+    optional uint32 gacha_type = 13;
+    optional uint32 left_gacha_times = 5;
+    repeated uint32 display_up5_item_list = 2006;
+    optional uint32 gacha_times_limit = 11;
+    optional uint32 cost_item_num = 3;
+    optional bool is_new_wish = 733;
+    optional uint32 cost_item_id = 9;
+    optional uint32 ten_cost_item_num = 6;
+    optional string gacha_preview_prefab_path = 4;
+    optional uint32 wish_progress = 1819;
+    optional string title_textmap = 736;
+    optional string gacha_record_url_oversea = 1854;
+    optional uint32 gacha_sort_id = 7;
+    optional string gacha_record_url = 12;
+}
+
+message GetGachaInfoRsp {
+    optional bool is_under_general_restrict = 6;
+    optional uint32 gacha_random = 9;
+    optional int32 retcode = 10;
+    optional bool is_under_minors_restrict = 2;
+    optional uint32 daily_gacha_times = 5;
+    repeated GachaInfo gacha_info_list = 13;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1598;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message DoGachaReq {
+    optional uint32 gacha_times = 10;
+    optional uint32 gacha_schedule_id = 7;
+    optional uint32 gacha_type = 14;
+    optional uint32 gacha_random = 13;
+    optional string gacha_tag = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1512;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GachaTransferItem {
+    optional ItemParam item = 3;
+    optional bool is_transfer_item_new = 1;
+}
+
+message GachaItem {
+    optional ItemParam gacha_item = 7;
+    optional bool is_gacha_item_new = 6;
+    optional bool is_flash_card = 8;
+    repeated ItemParam token_item_list = 9;
+    repeated GachaTransferItem transfer_items = 12;
+}
+
+message DoGachaRsp {
+    optional uint32 cur_schedule_daily_gacha_times = 155;
+    optional uint32 cost_item_num = 10;
+    optional uint32 wish_max_progress = 9;
+    optional uint32 wish_item_id = 8;
+    optional int32 retcode = 13;
+    optional uint32 ten_cost_item_num = 3;
+    optional uint32 wish_progress = 2;
+    repeated GachaItem gacha_item_list = 15;
+    optional uint32 ten_cost_item_id = 7;
+    optional uint32 gacha_times = 4;
+    optional bool is_under_minors_restrict = 1435;
+    optional bool is_under_general_restrict = 1868;
+    optional uint32 gacha_type = 12;
+    optional uint32 gacha_times_limit = 1;
+    optional uint32 cost_item_id = 14;
+    optional uint32 daily_gacha_times = 1240;
+    optional uint32 left_gacha_times = 6;
+    optional uint32 new_gacha_random = 11;
+    optional uint32 gacha_schedule_id = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1535;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GachaWishReq {
+    optional uint32 gacha_schedule_id = 14;
+    optional uint32 gacha_type = 13;
+    optional uint32 item_id = 4;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1507;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GachaWishRsp {
+    optional uint32 gacha_type = 8;
+    optional uint32 gacha_schedule_id = 7;
+    optional uint32 wish_max_progress = 2;
+    optional uint32 wish_progress = 5;
+    optional uint32 wish_item_id = 3;
+    optional int32 retcode = 14;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1521;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
+
+message GachaOpenWishNotify {
+    optional uint32 gacha_type = 2;
+    optional uint32 gacha_schedule_id = 9;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1503;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+        IS_ALLOW_CLIENT = 1;
+    }
+}
+
+message GachaSimpleInfoNotify {
+    optional bool is_new = 5;
+    
+    enum CmdId {
+        option allow_alias = true;
+        NONE = 0;
+        CMD_ID = 1590;
+        ENET_CHANNEL_ID = 0;
+        ENET_IS_RELIABLE = 1;
+    }
+}
