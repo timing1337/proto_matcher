@@ -8,4 +8,6 @@ Improvement? Pull request
 
 Love you all
 
+ignore my autistic comment and log lmao haha
+
 - timing <3
