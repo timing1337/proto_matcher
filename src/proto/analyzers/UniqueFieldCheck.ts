@@ -88,10 +88,6 @@ export class UniqueFieldCheck extends Analyzer {
             })
             if(debug) logger.log(`New obfucated. New ${debugs.join(", ")}`);
         }
-        //
-        // FIRST CHECK
-        // We check the uniqueness of the proto if every fields type is unique or not.
-        //        
         Array.from(obfuscatedFieldMapSortedType.entries()).forEach(([type, fields]) => {
             if (fields.length !== 1) return;
             const deobfuscatedField = deobfuscatedFields.filter(field => field.getTypeString(true) === type)[0];

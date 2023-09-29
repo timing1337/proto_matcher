@@ -1,8 +1,3 @@
-/*
-Any proto that is in define.proto is not shuffled for unknown reasons
-Good thing, we can use it
-*/
-
 import { globalNameTranslation } from "../..";
 import Logger from "../../utils/logger";
 import { Analyzer } from "../Analyzer";
