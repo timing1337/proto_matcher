@@ -34,7 +34,6 @@ export class DefineAnalyzer extends Analyzer {
 
             for(const deobfuscatedField of deobfuscatedFieldMap){
                 const obfuscatedField = obfuscatedFieldMap.find(field => field.fieldId == deobfuscatedField.fieldId);
-                //do both strict check and other check
                 if(obfuscatedField?.getTypeString(true, true) == deobfuscatedField.getTypeString(true, true)){
                     nameTranslation.set(obfuscatedField.name, deobfuscatedField.name)
                     if(debug) logger.log(`${obfuscatedField.name} -> ${deobfuscatedField.name}`);
