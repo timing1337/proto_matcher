@@ -11,3 +11,7 @@ Love you all
 ignore my autistic comment and log lmao haha
 
 - timing <3
+
+## Credits 
+
+- nana for the logger and ascii art startup message
